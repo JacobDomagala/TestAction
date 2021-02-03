@@ -11,13 +11,13 @@ async function run() {
     const time = (new Date()).toTimeString();
 
 
-    [rv] = await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/timing', {
-      owner: owner,
-      repo: repo,
-      run_id: run_id
-    })
+    // [rv] = await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/timing', {
+    //   owner: owner,
+    //   repo: repo,
+    //   run_id: run_id
+    // })
 
-    console.log(`${rv}`)
+    // console.log(`${rv}`)
 
     core.setOutput("time", time);
   } catch (error) {
