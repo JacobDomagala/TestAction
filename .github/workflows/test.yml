@@ -13,7 +13,7 @@ jobs:
       with:
         owner: JacobDomagala
         repo: TestAction
-        run_id: $GITHUB_RUN_ID
+        run_id: ${{github.run_id}}
 
     # Use the output from the `hello` step
     - name: Get the output time
