@@ -1,6 +1,6 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
-const { Octokit } = require("@octokit/request");
+const { request } = require("@octokit/request");
 
 async function run() {
   try {
@@ -11,15 +11,16 @@ async function run() {
     console.log(`Going with /repos/${owner}/${repo}/actions/runs/${run_id}/timing !`);
     const time = (new Date()).toTimeString();
 
-    const result = await request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/timing', {
+    // GET https://api.github.com/repos/<org>/<repo>/check-suites/<check_suite_id>/check-runs
+    const result = await request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/check-runs', {
       owner: owner,
       repo: repo,
       run_id: run_id
     })
 
-    console.log(`${result}`)
+    console.log(`Run duration=${result.data.run_duration_ms}`)
 
-    core.setOutput("time", time);
+    core.setOutput("time", result.data.run_duration_ms);
   } catch (error) {
     core.setFailed(error.message);
   }
