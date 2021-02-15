@@ -1,15 +1,26 @@
-name: 'Get time of action'
+name: 'Generate and push build time graph to wiki'
 description: 'How much time did last run take'
 inputs:
-  owner:
-    required: true
-  repo:
-    required: true
-  run_id:
-    required: true
+  # owner:
+  #   required: true
+  # repo:
+  #   required: true
+  # run_id:
+  #   required: true
+  path:
+    description: ''
 outputs:
   time: # id of output
     description: 'Time it took for given action'
+# runs:
+#   using: 'node12'
+#   main: 'index.js'
+
 runs:
-  using: 'node12'
-  main: 'index.js'
+  using: "docker"
+  image: "Dockerfile"
+  args: ["${{ inputs.path }}"]
+
+# branding:
+#   icon: "book-open"
+#   color: "white"
