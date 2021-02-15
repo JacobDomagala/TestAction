@@ -55,6 +55,8 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git pull "$GIT_REPOSITORY_URL"
 ) || exit 1
 
+# Generate graph
+python3 /generate_graph.py -o $tmp_dir/graph.jpg
 
 debug "Committing and pushing changes"
 (
