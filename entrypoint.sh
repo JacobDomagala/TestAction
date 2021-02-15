@@ -61,7 +61,8 @@ debug "Committing and pushing changes"
     echo "Second dir = $tmp_dir"
     cd "$tmp_dir" || exit 1
     echo 'This is a test\
-    ![rwgwr](rgwrg)' > BuildStatistics.md
+    ![image_description](graph.jpg)' > BuildStatistics.md
+
     git add .
     git commit -m "$WIKI_COMMIT_MESSAGE"
     git push --set-upstream "$GIT_REPOSITORY_URL" master
