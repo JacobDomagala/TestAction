@@ -26,11 +26,12 @@ print(f"Query URL = {query_url}")
 r = requests.get(query_url)
 #pprint(r.json())
 r_json = r.json()
+timings = []
 for i in r_json["workflow_runs"]:
-    print(f"workflow_run:{i['run_number']} with ID:{i['id']} and check_suite_id:{i['check_suite_id']}")
-
-
-
+    run_data = requests.get(f"https://api.github.com/repos/{repo_name}//actions/runs/{i['id']}/runs")
+    run_data_json = run_data.json()
+    print(f"workflow_run:{i['run_number']} with ID:{i['id']} took:{run_data_json['run_duration_ms']}ms and check_suite_id:{i['check_suite_id']}")
+    timings.append(run_data_json['run_duration_ms'])
 
 
 parser = argparse.ArgumentParser()
@@ -38,12 +39,11 @@ parser.add_argument('-o','--output',help='Output file name', required=True)
 args = parser.parse_args()
 
 # make up some data
-x = [datetime.datetime.now() + datetime.timedelta(hours=i) for i in range(12)]
-y = [i+random.gauss(0,1) for i,_ in enumerate(x)]
+x = range(r_json["total_count"])
 
 # plot
-plt.plot(x,y)
+plt.plot(x, timings)
 # beautify the x-labels
-plt.gcf().autofmt_xdate()
+#plt.gcf().autofmt_xdate()
 
 plt.savefig(args.output)
