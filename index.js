@@ -12,7 +12,13 @@ async function run() {
     const time = (new Date()).toTimeString();
 
     // GET https://api.github.com/repos/<org>/<repo>/check-suites/<check_suite_id>/check-runs
-    const result = await request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/check-runs', {
+
+    // Get workflow_id
+    // https://api.github.com/repos/JacobDomagala/DGame/actions/workflows
+
+    // Get all run_id for given workflow
+    // https://api.github.com/repos/JacobDomagala/DGame/actions/workflows/2745476/runs
+    const result = await request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/runs', {
       owner: owner,
       repo: repo,
       run_id: run_id

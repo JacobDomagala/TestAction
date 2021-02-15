@@ -1,5 +1,5 @@
 name: 'Generate and push build time graph to wiki'
-description: 'How much time did last run take'
+description: 'Github action to generate graph of build times history for given workflow and push it to wiki'
 inputs:
   # owner:
   #   required: true
@@ -12,6 +12,7 @@ inputs:
 outputs:
   time: # id of output
     description: 'Time it took for given action'
+    required: true
 # runs:
 #   using: 'node12'
 #   main: 'index.js'
