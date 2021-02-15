@@ -16,7 +16,7 @@ RUN chmod +x /entrypoint.sh
 #     apk del .build-deps
 
 RUN apt-get update
-RUN apt-get install python3 -y && apt-get install python3-pip -y
+RUN apt-get install python3 -y && apt-get install python3-pip -y && apt-get install git -y
 RUN pip3 install matplotlib
 
 ENTRYPOINT ["/entrypoint.sh"]
