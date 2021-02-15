@@ -1,20 +1,20 @@
-name: Test_Action
+# name: Test_Action
 
-on: [push]
+# on: [push]
 
-jobs:
-  hello_world_job:
-    runs-on: ubuntu-latest
-    name: Test job
-    steps:
-    - name: Hello world action step
-      id: hello
-      uses: JacobDomagala/TestAction@master
-      with:
-        owner: JacobDomagala
-        repo: TestAction
-        run_id: ${{github.run_id}}
+# jobs:
+#   hello_world_job:
+#     runs-on: ubuntu-latest
+#     name: Test job
+#     steps:
+#     - name: Hello world action step
+#       id: hello
+#       uses: JacobDomagala/TestAction@master
+#       with:
+#         owner: JacobDomagala
+#         repo: TestAction
+#         run_id: ${{github.run_id}}
 
-    # Use the output from the `hello` step
-    - name: Get the output time
-      run: echo "The time was ${{ steps.hello.outputs.time }}"
+#     # Use the output from the `hello` step
+#     - name: Get the output time
+#       run: echo "The time was ${{ steps.hello.outputs.time }}"

@@ -1,27 +1,16 @@
-name: 'Generate and push build time graph to wiki'
-description: 'Github action to generate graph of build times history for given workflow and push it to wiki'
+name: "Publish to GitHub Wiki"
+description: "Pushes files to a GitHub project's wiki"
+
 inputs:
-  # owner:
-  #   required: true
-  # repo:
-  #   required: true
-  # run_id:
-  #   required: true
   path:
-    description: ''
-outputs:
-  time: # id of output
-    description: 'Time it took for given action'
+    description: "A path to the directory of files to publish"
     required: true
-# runs:
-#   using: 'node12'
-#   main: 'index.js'
 
 runs:
   using: "docker"
   image: "Dockerfile"
   args: ["${{ inputs.path }}"]
 
-# branding:
-#   icon: "book-open"
-#   color: "white"
+branding:
+  icon: "book-open"
+  color: "white"
