@@ -24,7 +24,10 @@ print(f"Query URL = {query_url}")
 # }
 # headers = {'Authorization': f'token {token}'}
 r = requests.get(query_url)
-pprint(r.json())
+#pprint(r.json())
+r_json = r.json()
+for i in r_json["workflow_runs"]:
+    print(f"workflow_run:{i['run_number']} with ID:{i['id']} and check_suite_id:{i['check_suite_id']}")
 
 
 
