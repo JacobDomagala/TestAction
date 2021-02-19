@@ -1,20 +1,18 @@
-import datetime
-import matplotlib
 import matplotlib.pyplot as plt
 import argparse
 from github import Github
 import os
 
-token = os.getenv('GH_TOKEN')
+token = os.getenv('INPUT_GITHUB-TOKEN')
 repo_name = os.getenv('GITHUB_REPOSITORY')
+workflow_name = os.getenv('INPUT_WORKFLOW-NAME')
 g = Github(token)
 repo = g.get_repo(f"{repo_name}")
-workflow = repo.get_workflow(id_or_name="test.yml")
-print(f"Workflow ID = {workflow.id}")
+workflow = repo.get_workflow(id_or_name=workflow_name)
 
-print("Going with PyGithub")
 timings = []
-for run in workflow.get_runs(status="success"):
+workflow_runs = workflow.get_runs(status="success")
+for run in workflow_runs:
     run.timing()
     print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms ")
     # Convert ms to sec
@@ -25,11 +23,12 @@ parser.add_argument('-o', '--output', help='Output file name', required=True)
 args = parser.parse_args()
 
 # make up some data
-x = range(workflow.get_runs(status="success").totalCount)
+x = range(workflow_runs.totalCount)
 
 # plot
 plt.plot(x, timings, color='b', marker='o')
 plt.grid(True)
+plt.title("Develop build times")
 plt.xlabel("Run number")
 plt.ylabel("Build time (seconds)")
 
