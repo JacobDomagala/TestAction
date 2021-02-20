@@ -20,6 +20,9 @@ inputs:
     description: 'Filename for the generated graph that will be pushed to the wiki repo'
     required: true
     default: 'graph.png'
+  num_last_build:
+    description: 'Number of last build to be used for graph'
+    default: '10'
 
 runs:
   using: "docker"

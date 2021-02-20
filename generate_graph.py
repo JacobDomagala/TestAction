@@ -20,8 +20,15 @@ workflow = repo.get_workflow(id_or_name=workflow_name)
 timings = []
 dates = []
 
-workflow_runs = workflow.get_runs(status="success")[-10:]
-for run in workflow_runs:
+workflow_runs = workflow.get_runs(status="success")
+requested_last_runs = int(os.getenv('INPUT_NUM_LAST_BUILD'))
+
+if workflow_runs.totalCount >= requested_last_runs:
+    last_n_runs = requested_last_runs
+else:
+    last_n_runs = workflow_runs.totalCount
+
+for run in workflow_runs[-last_n_runs:]:
     run.timing()
     print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms ")
     # Convert ms to sec
