@@ -22,6 +22,11 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
+  args:
+    - ${{ inputs.github-personal-token }}
+    - ${{ inputs.github-token }}
+    - ${{ inputs.workflow-name }}
+    - ${{ inputs.graph-filename }}
 
 branding:
   icon: "book-open"
