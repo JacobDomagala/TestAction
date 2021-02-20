@@ -9,8 +9,9 @@ parser.add_argument('-o', '--output', help='Output file name', required=True)
 graph_file_name = parser.parse_args().output
 
 token = os.getenv('INPUT_GITHUB_TOKEN')
-repo_name = os.getenv('GITHUB_REPOSITORY')
+repo_name = os.getenv('INPUT_REPO', os.getenv('GITHUB_REPOSITORY'))
 workflow_name = os.getenv('INPUT_WORKFLOW')
+
 g = Github(token)
 repo = g.get_repo(f"{repo_name}")
 workflow = repo.get_workflow(id_or_name=workflow_name)
@@ -19,7 +20,7 @@ workflow = repo.get_workflow(id_or_name=workflow_name)
 timings = []
 dates = []
 
-workflow_runs = workflow.get_runs(status="success")
+workflow_runs = workflow.get_runs(status="success")[-10:]
 for run in workflow_runs:
     run.timing()
     print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms ")

@@ -9,6 +9,8 @@ inputs:
     description: 'Github token used for Github API requests'
     required: true
     default: ${{ github.token }}
+  repo:
+    description: 'Optional repository name. If not provided, the value of GITHUB_REPOSITORY will be used'
   workflow:
     description: |
       'Name of the worflow (yaml file or Github's unique workflow ID number)

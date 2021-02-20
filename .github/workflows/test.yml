@@ -12,5 +12,6 @@ jobs:
       with:
         github_personal_token: ${{ secrets.GPAT }}
         github_token: ${{ github.token }}
-        workflow: test.yml
+        repo: DARMA-tasking/vt
+        workflow: pushdockerimage.yml
         filename: build_times.png
