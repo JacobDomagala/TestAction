@@ -53,7 +53,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 ) || exit 1
 
 # Generate graph
-python3 /generate_graph.py -o $tmp_dir/graph.jpg
+python3 /generate_graph.py -o $tmp_dir/${INPUT_GRAPH-FILENAME}
 
 debug "Committing and pushing changes"
 (

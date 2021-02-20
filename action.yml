@@ -14,8 +14,10 @@ inputs:
       'Name of the worflow (yaml file or Github's unique workflow ID number)
       for which the graph will be generated'
     remote: true
-
-
+  graph-filename:
+    description: 'Filename for the generated graph that will be pushed to the wiki repo'
+    required: true
+    default: 'graph.png'
 
 runs:
   using: "docker"
