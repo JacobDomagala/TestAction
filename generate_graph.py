@@ -20,22 +20,27 @@ workflow = repo.get_workflow(id_or_name=workflow_name)
 timings = []
 dates = []
 
-workflow_runs = workflow.get_runs(status="success")
+workflow_runs = workflow.get_runs(status="success", branch="develop")
 requested_last_runs = int(os.getenv('INPUT_NUM_LAST_BUILD'))
+
+print(f'workflow_runs.totalCount={workflow_runs.totalCount} and requested_last_runs={requested_last_runs}')
 
 if workflow_runs.totalCount >= requested_last_runs:
     last_n_runs = requested_last_runs
 else:
     last_n_runs = workflow_runs.totalCount
 
-for run in workflow_runs[-last_n_runs:]:
+print(f'last_n_runs={last_n_runs}')
+
+for run in workflow_runs[:last_n_runs]:
     run.timing()
     print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms ")
     # Convert ms to sec
-    timings.append(run.timing().run_duration_ms / 1000.0)
-    dates.append(run.head_branch)
+    timings.append(run.timing().run_duration_ms / 60000.0)
+    dates.append(run.run_number)
 
 # plot
+plt.figure(figsize=(12,9))
 plt.plot(dates, timings, color='b', marker='o')
 plt.grid(True)
 plt.title("Develop build times")
