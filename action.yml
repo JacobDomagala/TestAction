@@ -2,19 +2,19 @@ name: "Graph build times to wiki page"
 description: "Genertates and pushes graph of build times to a GitHub project's wiki"
 
 inputs:
-  github-personal-token:
+  github_personal_token:
     description: 'Github personal access token used to push graph to remote'
     required: true
-  github-token:
+  github_token:
     description: 'Github token used for Github API requests'
     required: true
     default: ${{ github.token }}
-  workflow-name:
+  workflow:
     description: |
       'Name of the worflow (yaml file or Github's unique workflow ID number)
       for which the graph will be generated'
     remote: true
-  graph-filename:
+  filename:
     description: 'Filename for the generated graph that will be pushed to the wiki repo'
     required: true
     default: 'graph.png'
@@ -22,11 +22,6 @@ inputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  args:
-    - ${{ inputs.github-personal-token }}
-    - ${{ inputs.github-token }}
-    - ${{ inputs.workflow-name }}
-    - ${{ inputs.graph-filename }}
 
 branding:
   icon: "book-open"

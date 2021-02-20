@@ -28,19 +28,19 @@ if [ -z "$GITHUB_REPOSITORY" ]; then
     exit 1
 fi
 
-if [ -z "${INPUT_GITHUB-PERSONAL-TOKEN}" ]; then
+if [ -z "${INPUT_GITHUB_PERSONAL_TOKEN}" ]; then
     error "github-personal-token environment variable is not set"
     exit 1
 fi
 
-add_mask "${INPUT_GITHUB-PERSONAL-TOKEN}"
+add_mask "${INPUT_GITHUB_PERSONAL_TOKEN}"
 
 if [ -z "${WIKI_COMMIT_MESSAGE:-}" ]; then
     debug "WIKI_COMMIT_MESSAGE not set, using default"
     WIKI_COMMIT_MESSAGE='Push build time graph'
 fi
 
-GIT_REPOSITORY_URL="https://${INPUT_GITHUB-PERSONAL-TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
+GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
 
 debug "Checking out wiki repository"
 tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
@@ -53,7 +53,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 ) || exit 1
 
 # Generate graph
-python3 /generate_graph.py -o $tmp_dir/${INPUT_GRAPH-FILENAME}
+python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
 
 debug "Committing and pushing changes"
 (

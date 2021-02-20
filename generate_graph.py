@@ -3,9 +3,9 @@ import argparse
 from github import Github
 import os
 
-token = os.getenv('INPUT_GITHUB-TOKEN')
+token = os.getenv('INPUT_GITHUB_TOKEN')
 repo_name = os.getenv('GITHUB_REPOSITORY')
-workflow_name = os.getenv('INPUT_WORKFLOW-NAME')
+workflow_name = os.getenv('INPUT_WORKFLOW')
 g = Github(token)
 repo = g.get_repo(f"{repo_name}")
 workflow = repo.get_workflow(id_or_name=workflow_name)
