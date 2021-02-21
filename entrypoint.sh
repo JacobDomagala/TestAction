@@ -3,22 +3,22 @@
 set -euo pipefail
 
 if [ -z "$GITHUB_ACTOR" ]; then
-    error "GITHUB_ACTOR environment variable is not set"
+    echo "GITHUB_ACTOR environment variable is not set"
     exit 1
 fi
 
 if [ -z "$GITHUB_REPOSITORY" ]; then
-    error "GITHUB_REPOSITORY environment variable is not set"
+    echo "GITHUB_REPOSITORY environment variable is not set"
     exit 1
 fi
 
 if [ -z "${INPUT_GITHUB_PERSONAL_TOKEN}" ]; then
-    error "github-personal-token environment variable is not set"
+    echo "github-personal-token environment variable is not set"
     exit 1
 fi
 
 if [ -z "${INPUT_COMMIT_MESSAGE:-}" ]; then
-    debug "INPUT_COMMIT_MESSAGE not set, using default"
+    echo "INPUT_COMMIT_MESSAGE not set, using default"
     INPUT_COMMIT_MESSAGE='Push build time graph'
 fi
 
@@ -40,7 +40,7 @@ python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
     cd "$tmp_dir" || exit 1
 
     git add .
-    git commit -m "$WIKI_COMMIT_MESSAGE"
+    git commit -m "$INPUT_COMMIT_MESSAGE"
     git push --set-upstream "$GIT_REPOSITORY_URL" master
 ) || exit 1
 

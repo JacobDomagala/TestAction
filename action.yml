@@ -20,8 +20,9 @@ inputs:
     default: 'graph.png'
   repo:
     description: |
-     'Repository name where queried workflow is being run. If not provided, the value of GITHUB_REPOSITORY will be used,
-     which is the name of the repository on which this action is run'
+      'Repository name where queried workflow is being run. If not provided, the value of GITHUB_REPOSITORY will be used,
+      which is the name of the repository on which this action is run'
+    default: ${{ github.repository }}
   num_last_build:
     description: 'Number of last builds to be used for generating graph'
     default: '10'
@@ -29,6 +30,12 @@ inputs:
     description: 'Branch name for which build times should be plotted. By default '
   title:
     description: 'Title of the generated graph'
+  graph_width:
+    description: 'Graph width in inches'
+    default: 6.4
+  graph_height:
+    description: 'Graph height in inches'
+    default: 4.8
   commit_message:
     description: 'Commit message for wiki page'
 

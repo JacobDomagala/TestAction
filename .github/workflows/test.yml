@@ -22,3 +22,5 @@ jobs:
         filename: build_times.png
         num_last_build: 50
         title: Build times of vt:develop docker image
+        graph_width: 19
+        graph_height: 8
