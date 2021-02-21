@@ -18,7 +18,7 @@ workflow = repo.get_workflow(id_or_name=workflow_name)
 
 # Data to be plotted
 timings = []
-dates = []
+run_ids = []
 
 workflow_runs = workflow.get_runs(status="success", branch="develop")
 requested_last_runs = int(os.getenv('INPUT_NUM_LAST_BUILD'))
@@ -37,14 +37,14 @@ for run in workflow_runs[:last_n_runs]:
     print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms ")
     # Convert ms to sec
     timings.append(run.timing().run_duration_ms / 60000.0)
-    dates.append(run.run_number)
+    run_ids.append(run.run_number)
 
 # plot
 plt.figure(figsize=(12,9))
-plt.plot(dates, timings, color='b', marker='o')
+plt.plot(run_ids, timings, color='b', marker='o')
 plt.grid(True)
-plt.title("Develop build times")
-plt.xlabel("Commit SHA")
-plt.ylabel("Build time (seconds)")
+plt.title(os.getenv('INPUT_TITLE', ''))
+plt.xlabel("Run number")
+plt.ylabel("Build time (min)")
 
 plt.savefig(graph_file_name)

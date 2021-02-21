@@ -10,9 +10,15 @@ jobs:
     - name: Test Action
       uses: JacobDomagala/TestAction@graph-build-time
       with:
+        # Used for creating commit and pushing it to wiki repo
         github_personal_token: ${{ secrets.GPAT }}
+
+        # Used for sending Github API requests
         github_token: ${{ github.token }}
+
+        #
         repo: DARMA-tasking/vt
         workflow: pushdockerimage.yml
         filename: build_times.png
         num_last_build: 50
+        title: Build times of vt:develop docker image
