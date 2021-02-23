@@ -7,31 +7,34 @@ from github import Github
 import requests
 import os
 
-#token = os.getenv('GH_TOKEN', '...')
-repo_name = "JacobDomagala/TestRepo"
-g = Github("JacobDomagala", "Szambo1234!@#$")
-repo = g.get_repo(f"{repo_name}")
-workflow = repo.get_workflow(id_or_name="test.yml")
-print(f"Workflow ID = {workflow.id}")
 
-print("Going with PyGithub")
-timings = []
-for run in workflow.get_runs(status="success"):
-    run.timing()
-    print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms ")
-    timings.append(run.timing().run_duration_ms)
+run_nums = range(0, 100)
+timings = range(0, 100)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-o','--output',help='Output file name', required=True)
-args = parser.parse_args()
+SMALL_SIZE = 20
+MEDIUM_SIZE = 30
+BIGGER_SIZE = 40
 
-x = range(workflow.get_runs(status="success").totalCount)
-
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=BIGGER_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+plt.rc('font', family='serif')
 # plot
-plt.plot(x, timings)
-plt.figure(figsize=(12, 9))
-plt.grid(True, color="#93a1a1", alpha=0.3)
+plot_w = 18.0
+plot_h = 9.0
+plt.figure(figsize=(plot_w, plot_h))
+plt.plot(run_nums, timings, color='b', marker='o')
+plt.grid(True)
+
+
+
+#font_size = int(os.getenv('INPUT_FONT_SIZE'))
+plt.title('Title')
 plt.xlabel("Run number")
-plt.ylabel("Build time ms")
+plt.ylabel("Build time (min)")
 
 plt.show()

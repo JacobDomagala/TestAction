@@ -27,9 +27,16 @@ inputs:
     description: 'Number of last builds to be used for generating graph'
     default: '10'
   branch:
-    description: 'Branch name for which build times should be plotted. By default '
+    description: 'Branch name for which build times should be plotted'
+    default: develop
   title:
     description: 'Title of the generated graph'
+  x_label:
+    description: 'X axis label'
+    default: Run number
+  y_label:
+    description: 'Y axis label'
+    default: Build time (min)
   graph_width:
     description: 'Graph width in inches'
     default: 6.4
@@ -38,6 +45,7 @@ inputs:
     default: 4.8
   commit_message:
     description: 'Commit message for wiki page'
+
 
 runs:
   using: "docker"

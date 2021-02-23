@@ -8,19 +8,14 @@ jobs:
     name: Test job
     steps:
     - name: Test Action
-      uses: JacobDomagala/TestAction@graph-build-time
+      uses: DARMA-tasking/graph-build-times@1-create-the-github-action
       with:
-        # Used for creating commit and pushing it to wiki repo
         github_personal_token: ${{ secrets.GPAT }}
-
-        # Used for sending Github API requests
         github_token: ${{ github.token }}
-
-        #
-        repo: DARMA-tasking/vt
-        workflow: pushdockerimage.yml
+        workflow: test.yml
         filename: build_times.png
         num_last_build: 50
-        title: Build times of vt:develop docker image
+        title: Last 50 builds
         graph_width: 19
         graph_height: 8
+        branch: graph-build-time

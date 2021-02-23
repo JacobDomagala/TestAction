@@ -8,49 +8,64 @@ parser = argparse.ArgumentParser()
 parser.add_argument('-o', '--output', help='Output file name', required=True)
 graph_file_name = parser.parse_args().output
 
+# Input variables from Github action
+GITHUB_TOKEN = os.getenv('INPUT_GITHUB_TOKEN')
+REPO_NAME = os.getenv('INPUT_REPO')
+WORKFLOW_NAME = os.getenv('INPUT_WORKFLOW')
+BRANCH_NAME = os.getenv('INPUT_BRANCH')
+REQUESTED_N_LAST_BUILDS = int(os.getenv('INPUT_NUM_LAST_BUILD'))
+GRAPH_TITLE = os.getenv('INPUT_TITLE', '')
+X_LABEL = os.getenv('INPUT_X_LABEL')
+Y_LABEL = os.getenv('INPUT_Y_LABEL')
+GRAPH_WIDTH = float(os.getenv('INPUT_GRAPH_WIDTH'))
+GRAPH_HEIGHT = float(os.getenv('INPUT_GRAPH_HEIGHT'))
 
+print(f'Repo={REPO_NAME} Workflow={WORKFLOW_NAME}')
 
-token = os.getenv('INPUT_GITHUB_TOKEN')
-repo_name = os.getenv('INPUT_REPO')
-workflow_name = os.getenv('INPUT_WORKFLOW')
-
-print(f'Repo={repo_name} Workflow={workflow_name}')
-
-g = Github(token)
-repo = g.get_repo(f"{repo_name}")
-workflow = repo.get_workflow(id_or_name=workflow_name)
+g = Github(GITHUB_TOKEN)
+repo = g.get_repo(REPO_NAME)
+workflow = repo.get_workflow(id_or_name=WORKFLOW_NAME)
 
 # Data to be plotted
 timings = []
 run_nums = []
 
-workflow_runs = workflow.get_runs(status="success", branch="develop")
-requested_last_runs = int(os.getenv('INPUT_NUM_LAST_BUILD'))
+workflow_runs = workflow.get_runs(status="success", branch=BRANCH_NAME)
 
-print(f'workflow_runs.totalCount={workflow_runs.totalCount} and requested_last_runs={requested_last_runs}')
+print(f'workflow_runs.totalCount={workflow_runs.totalCount} and requested_last_runs={REQUESTED_N_LAST_BUILDS}')
 
-if workflow_runs.totalCount >= requested_last_runs:
-    last_n_runs = requested_last_runs
-else:
-    last_n_runs = workflow_runs.totalCount
+last_n_runs = min(REQUESTED_N_LAST_BUILDS, workflow_runs.totalCount)
 
 print(f'last_n_runs={last_n_runs}')
 
 for run in workflow_runs[:last_n_runs]:
-    run.timing()
-    print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run.timing().run_duration_ms}ms")
+    run_timing = run.timing()
+    print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run_timing.run_duration_ms}ms")
+
     # Convert ms to min
-    timings.append(run.timing().run_duration_ms / 60000.0)
+    timings.append(run_timing.run_duration_ms / 60000.0)
     run_nums.append(run.run_number)
 
+SMALL_SIZE = 15
+MEDIUM_SIZE = 25
+BIGGER_SIZE = 35
+
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=BIGGER_SIZE)    # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+plt.rc('font', family='serif')           # font family
+
 # plot
-plot_w = float(os.getenv('INPUT_GRAPH_WIDTH'))
-plot_h = float(os.getenv('INPUT_GRAPH_HEIGHT'))
-plt.figure(figsize=(plot_w, plot_h))
+plt.figure(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
 plt.plot(run_nums, timings, color='b', marker='o')
 plt.grid(True)
-plt.title(os.getenv('INPUT_TITLE', ''))
-plt.xlabel("Run number")
-plt.ylabel("Build time (min)")
+
+plt.title(GRAPH_TITLE)
+plt.xlabel(X_LABEL)
+plt.ylabel(Y_LABEL)
 
 plt.savefig(graph_file_name)
