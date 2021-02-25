@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import argparse
 from github import Github
 import os
@@ -29,6 +30,7 @@ workflow = repo.get_workflow(id_or_name=WORKFLOW_NAME)
 # Data to be plotted
 timings = []
 run_nums = []
+dates = []
 
 workflow_runs = workflow.get_runs(status="success", branch=BRANCH_NAME)
 
@@ -40,11 +42,15 @@ print(f'last_n_runs={last_n_runs}')
 
 for run in workflow_runs[:last_n_runs]:
     run_timing = run.timing()
-    print(f"workflow_run:{run.workflow_id} with ID:{run.id} took:{run_timing.run_duration_ms}ms")
+    print(f"run_number:{run.run_number} created at:{run.created_at} took:{run_timing.run_duration_ms}ms")
 
     # Convert ms to min
     timings.append(run_timing.run_duration_ms / 60000.0)
+    dates.append(run.created_at)
     run_nums.append(run.run_number)
+
+#dates = matplotlib.dates.date2num(run_nums)
+#matplotlib.pyplot.plot_date(dates, values)
 
 SMALL_SIZE = 15
 MEDIUM_SIZE = 25
@@ -60,12 +66,20 @@ plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 plt.rc('font', family='serif')           # font family
 
 # plot
-plt.figure(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
-plt.plot(run_nums, timings, color='b', marker='o')
+fig = plt.figure(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
 plt.grid(True)
 
+ax1 = fig.add_subplot()
+ax2 = ax1.twiny()
+
+ax1.plot_date(dates, timings, color='b')
+ax2.plot(run_nums, timings)
+
+
+#plt.gcf().autofmt_xdate()
+
 plt.title(GRAPH_TITLE)
-plt.xlabel(X_LABEL)
+ax1.set_xlabel(X_LABEL)
 plt.ylabel(Y_LABEL)
 
 plt.savefig(graph_file_name)
