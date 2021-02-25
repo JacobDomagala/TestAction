@@ -28,7 +28,6 @@ inputs:
     default: '10'
   branch:
     description: 'Branch name for which build times should be plotted'
-    default: develop
   title:
     description: 'Title of the generated graph'
   x_label:

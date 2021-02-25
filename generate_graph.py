@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import argparse
 from github import Github
+import numpy as np
 import os
 
 # Get file name from user
@@ -32,7 +33,9 @@ timings = []
 run_nums = []
 dates = []
 
-workflow_runs = workflow.get_runs(status="success", branch=BRANCH_NAME)
+
+workflow_runs = workflow.get_runs()
+
 
 print(f'workflow_runs.totalCount={workflow_runs.totalCount} and requested_last_runs={REQUESTED_N_LAST_BUILDS}')
 
@@ -40,14 +43,24 @@ last_n_runs = min(REQUESTED_N_LAST_BUILDS, workflow_runs.totalCount)
 
 print(f'last_n_runs={last_n_runs}')
 
-for run in workflow_runs[:last_n_runs]:
-    run_timing = run.timing()
-    print(f"run_number:{run.run_number} created at:{run.created_at} took:{run_timing.run_duration_ms}ms")
+run_count = 0
 
-    # Convert ms to min
-    timings.append(run_timing.run_duration_ms / 60000.0)
-    dates.append(run.created_at)
-    run_nums.append(run.run_number)
+for run in workflow_runs:
+    if(run.head_branch == BRANCH_NAME and run.status == 'completed'):
+        run_timing = run.timing()
+
+        # Convert ms to min
+        timings.append(run_timing.run_duration_ms / 60000.0)
+        dates.append(run.created_at)
+        run_nums.append(run.run_number)
+
+        print(f"run_number:{run.run_number} status:{run.status} on branch:{run.head_branch} created at:{run.created_at} took:{run_timing.run_duration_ms}ms")
+        run_count+=1
+    else:
+        print(f'Discarding run:{run.run_number} status:{run.status} branch:{run.head_branch}')
+
+    if run_count >= last_n_runs:
+        break
 
 #dates = matplotlib.dates.date2num(run_nums)
 #matplotlib.pyplot.plot_date(dates, values)
@@ -56,7 +69,7 @@ SMALL_SIZE = 15
 MEDIUM_SIZE = 25
 BIGGER_SIZE = 35
 
-plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=BIGGER_SIZE)    # fontsize of the axes title
 plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
 plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
@@ -66,20 +79,47 @@ plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 plt.rc('font', family='serif')           # font family
 
 # plot
-fig = plt.figure(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
-plt.grid(True)
+#plt.style.use('seaborn')
 
-ax1 = fig.add_subplot()
-ax2 = ax1.twiny()
+fig, ax = plt.subplots(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
 
-ax1.plot_date(dates, timings, color='b')
-ax2.plot(run_nums, timings)
+#plt.plot_date(dates, timings, color='b')
+fig.text(0.05,0.02, f'{dates[-1].day} {dates[-1].strftime("%B")} {dates[-1].year }')
+fig.text(0.95,0.02, f'{dates[0].day} {dates[0].strftime("%B")} {dates[0].year }', horizontalalignment='right')
 
+ax.plot(run_nums, timings, 'bo-')
+ax.grid(True)
 
 #plt.gcf().autofmt_xdate()
+print(f"Ticks: begin:{run_nums[0]} end:{run_nums[-1]} \n{np.arange(run_nums[0],run_nums[-1],-5)}")
 
+ticks = []
+counter = 0
+for i in run_nums:
+    counter += 1
+    if counter == 5:
+        ticks.append(i)
+        counter = 0
+
+plt.xticks(ticks)
 plt.title(GRAPH_TITLE)
-ax1.set_xlabel(X_LABEL)
+plt.xlabel(X_LABEL)
 plt.ylabel(Y_LABEL)
 
 plt.savefig(graph_file_name)
+
+##############################################################################
+fig, ax = plt.subplots(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
+
+ax.plot(run_nums, timings, 'bo-')
+ax.grid(True)
+fig.text(0.05,0.02, f'{dates[-1].day} {dates[-1].strftime("%B")} {dates[-1].year }')
+fig.text(0.95,0.02, f'{dates[0].day} {dates[0].strftime("%B")} {dates[0].year }', horizontalalignment='right')
+
+plt.title(GRAPH_TITLE)
+plt.xlabel(X_LABEL)
+plt.ylabel(Y_LABEL)
+
+file_name = os.getenv('INPUT_FILENAME')
+tmp_dir = graph_file_name.replace(file_name, '')
+plt.savefig(f'{tmp_dir}/test_graph.png')
