@@ -4,22 +4,23 @@ on:
     types: [my-event]
 jobs:
     test_job:
-    runs-on: ubuntu-latest
-    name: Test job
-    steps:
-    - name: Ubuntu full build
-      uses: JacobDomagala/TestAction@graph-build-time
-      with:
-        github_personal_token: ${{ secrets.GPAT }}
-        github_token: ${{ github.token }}
-        workflow: lint.yml
-        filename: build_times_ubuntu.png
-        repo: pytorch/pytorch
-        num_last_build: 50
-        title: Last 50 builds
-        graph_width: 19
-        graph_height: 8
-        branch: master
+      runs-on: ubuntu-latest
+      name: Test job
+      steps:
+      - name: Ubuntu full build
+        uses: JacobDomagala/TestAction@graph-build-time
+        with:
+          github_personal_token: ${{ secrets.GPAT }}
+          github_token: ${{ github.token }}
+          workflow: lint.yml
+          filename: build_times_ubuntu.png
+          repo: pytorch/pytorch
+          num_last_build: 50
+          title: Last 50 builds
+          graph_width: 19
+          graph_height: 8
+          branch: master
+
 
 
 
