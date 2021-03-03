@@ -114,4 +114,4 @@ BUILD_TIME = "50min"
 BADGE_COLOR = "green"
 
 url = f'https://img.shields.io/badge/vt:develop%20build%20time-${BUILD_TIME}-${BADGE_COLOR}.svg'
-wget.download(url, 'build_status_badge.svg')
+wget.download(url)
