@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefail
+set -x
 
 if [ -z "$GITHUB_ACTOR" ]; then
     echo "GITHUB_ACTOR environment variable is not set"
@@ -24,6 +24,7 @@ fi
 
 GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
 
+
 tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 (
     cd "$tmp_dir" || exit 1
@@ -31,19 +32,14 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git config user.name "$GITHUB_ACTOR"
     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
     git pull "$GIT_REPOSITORY_URL"
-) || exit 1
 
-# Generate graph
-python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
-
-(
-    cd "$tmp_dir" || exit 1
+    # Generate graph
+    python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
 
     git add .
     git commit -m "$INPUT_COMMIT_MESSAGE"
     git push --set-upstream "$GIT_REPOSITORY_URL" master
 ) || exit 1
 
-rm -rf "$tmp_dir"
 
-exit 0
+rm -rf "$tmp_dir"

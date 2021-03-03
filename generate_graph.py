@@ -4,6 +4,7 @@ import argparse
 from github import Github
 import numpy as np
 import os
+import wget
 
 # Get file name from user
 parser = argparse.ArgumentParser()
@@ -91,7 +92,6 @@ ax.plot(run_nums, timings, 'bo-')
 ax.grid(True)
 
 #plt.gcf().autofmt_xdate()
-print(f"Ticks: begin:{run_nums[0]} end:{run_nums[-1]} \n{np.arange(run_nums[0],run_nums[-1],-5)}")
 
 ticks = []
 counter = 0
@@ -108,18 +108,10 @@ plt.ylabel(Y_LABEL)
 
 plt.savefig(graph_file_name)
 
-##############################################################################
-fig, ax = plt.subplots(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
+print('Beginning file download with wget module')
 
-ax.plot(run_nums, timings, 'bo-')
-ax.grid(True)
-fig.text(0.05,0.02, f'{dates[-1].day} {dates[-1].strftime("%B")} {dates[-1].year }')
-fig.text(0.95,0.02, f'{dates[0].day} {dates[0].strftime("%B")} {dates[0].year }', horizontalalignment='right')
+BUILD_TIME = "50min"
+BADGE_COLOR = "green"
 
-plt.title(GRAPH_TITLE)
-plt.xlabel(X_LABEL)
-plt.ylabel(Y_LABEL)
-
-file_name = os.getenv('INPUT_FILENAME')
-tmp_dir = graph_file_name.replace(file_name, '')
-plt.savefig(f'{tmp_dir}/test_graph.png')
+url = f'https://img.shields.io/badge/vt:develop%20build%20time-${BUILD_TIME}-${BADGE_COLOR}.svg'
+wget.download(url, 'build_status_badge.svg')
