@@ -108,10 +108,13 @@ plt.ylabel(Y_LABEL)
 
 plt.savefig(graph_file_name)
 
-print('Beginning file download with wget module')
+
 
 BUILD_TIME = "50min"
 BADGE_COLOR = "green"
 
-url = f'https://img.shields.io/badge/vt:develop%20build%20time-${BUILD_TIME}-${BADGE_COLOR}.svg'
-wget.download(url)
+url = f'https://img.shields.io/badge/vt:develop%20build%20time-{BUILD_TIME}-{BADGE_COLOR}.svg'
+
+print(f'Beginning file {url}')
+r = requests.get(url)
+open('build_status_badge.svg', 'wb').write(r.content)
