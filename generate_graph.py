@@ -45,18 +45,21 @@ last_n_runs = min(REQUESTED_N_LAST_BUILDS, workflow_runs.totalCount)
 print(f'last_n_runs={last_n_runs}')
 
 run_count = 0
+total_run_time = 0
 
 for run in workflow_runs:
     if(run.head_branch == BRANCH_NAME and run.status == 'completed'):
         run_timing = run.timing()
 
         # Convert ms to min
-        timings.append(run_timing.run_duration_ms / 60000.0)
+        run_in_min = run_timing.run_duration_ms / 60000.0
+        timings.append(run_in_min)
         dates.append(run.created_at)
         run_nums.append(run.run_number)
 
         print(f"run_number:{run.run_number} status:{run.status} on branch:{run.head_branch} created at:{run.created_at} took:{run_timing.run_duration_ms}ms")
         run_count+=1
+        total_run_time += run_in_min
     else:
         print(f'Discarding run:{run.run_number} status:{run.status} branch:{run.head_branch}')
 
@@ -109,11 +112,13 @@ plt.ylabel(Y_LABEL)
 plt.savefig(graph_file_name)
 
 
+average_time = total_run_time / last_n_runs
 
-BUILD_TIME = "50min"
-BADGE_COLOR = "green"
+BUILD_TIME = timings[0]
+BADGE_COLOR = "green" if BUILD_TIME <= average_time else "red"
 
-url = f'https://img.shields.io/badge/vt:develop%20build%20time-{BUILD_TIME}-{BADGE_COLOR}.svg'
+print(f"Last build time = {BUILD_TIME} average build = {average_time} color = {BADGE_COLOR} ")
+url = f"https://img.shields.io/badge/vt:develop%20build%20time-{format(BUILD_TIME,'.1f')}%20min-{BADGE_COLOR}.svg"
 
 print(f'Beginning file {url}')
 r = requests.get(url)
