@@ -4,7 +4,7 @@ import argparse
 from github import Github
 import numpy as np
 import os
-import wget
+import requests
 
 # Get file name from user
 parser = argparse.ArgumentParser()
