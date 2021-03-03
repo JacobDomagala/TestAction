@@ -1,20 +1,12 @@
-name: Test_Action
-
-on: [push]
-
+name: Repository Dispatch
+on:
+  repository_dispatch:
+    types: [my-event]
 jobs:
-  hello_world_job:
+  myEvent:
     runs-on: ubuntu-latest
-    name: Test job
     steps:
-    - name: Hello world action step
-      id: hello
-      uses: JacobDomagala/TestAction@master
-      with:
-        owner: JacobDomagala
-        repo: TestAction
-        run_id: ${{github.run_id}}
-
-    # Use the output from the `hello` step
-    - name: Get the output time
-      run: echo "The time was ${{ steps.hello.outputs.time }}"
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.ref }}
+      - run: echo ${{ github.event.client_payload.sha }}
