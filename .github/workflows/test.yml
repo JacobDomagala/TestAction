@@ -1,12 +1,21 @@
-name: Repository Dispatch
+name: Test
 on:
-  repository_dispatch:
-    types: [my-event]
+  workflow_run:
+    workflows: ["Dispatcher"]
+    types:
+      - completed
+
 jobs:
     test_job:
       runs-on: ubuntu-latest
       name: Test job
       steps:
+      - name: Get the file
+        uses: actions/upload-artifact@v2
+        with:
+          name: homework
+      - shell: bash
+        run: cat math-homework.txt
       - name: Ubuntu full build
         uses: JacobDomagala/TestAction@graph-build-time
         with:
@@ -14,13 +23,13 @@ jobs:
           github_token: ${{ github.token }}
           workflow: lint.yml
           filename: build_times_ubuntu.png
+          build_file: math-homework.txt
           repo: pytorch/pytorch
           num_last_build: 50
           title: Last 50 builds
           graph_width: 19
           graph_height: 8
           branch: master
-
 
 
 
