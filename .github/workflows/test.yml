@@ -17,7 +17,7 @@ jobs:
       - shell: bash
         run: cat math-homework.txt
       - name: Ubuntu full build
-        uses: JacobDomagala/TestAction@graph-build-time
+        uses: JacobDomagala/TestAction@master
         with:
           github_personal_token: ${{ secrets.GPAT }}
           github_token: ${{ github.token }}

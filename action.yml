@@ -42,9 +42,10 @@ inputs:
   graph_height:
     description: 'Graph height in inches'
     default: 4.8
+  build_file:
+    description: 'file with build time'
   commit_message:
     description: 'Commit message for wiki page'
-  build_file:
 
 
 
