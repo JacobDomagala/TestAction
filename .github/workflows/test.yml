@@ -14,6 +14,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: homework
+          path: math-homework.txt
       - shell: bash
         run: cat math-homework.txt
       - name: Ubuntu full build
