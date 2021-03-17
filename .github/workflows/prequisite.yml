@@ -1,6 +1,6 @@
 name: Dispatcher
 
-on: [pull_request]
+on: [push]
 
 jobs:
   dispatch_job:
