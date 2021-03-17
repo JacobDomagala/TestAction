@@ -2,6 +2,10 @@
 
 set -x
 
+cd "$GITHUB_WORKSPACE"
+
+ls
+
 if [ -z "$GITHUB_ACTOR" ]; then
     echo "GITHUB_ACTOR environment variable is not set"
     exit 1

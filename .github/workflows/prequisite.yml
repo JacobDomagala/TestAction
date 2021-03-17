@@ -7,9 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     name: Test dispatch
     steps:
-    - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v1
-      with:
-        token: ${{ secrets.GPAT_WORKFLOW }}
-        event-type: my-event
+      - shell: bash
+        run: |
+          echo ${{github.run_number}} 60 > math-homework.txt
+      - name: Upload math result for job 1
+        uses: actions/upload-artifact@v2
+        with:
+          name: homework
+          path: math-homework.txt
 
