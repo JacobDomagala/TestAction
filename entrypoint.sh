@@ -38,15 +38,16 @@ fi
 
 GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
 
-docker build -t test_name:latest .
+docker build -t ${INPUT_DOCKER_REPOSITORY}:latest .
 
-containerId=$(docker create test_name:latest)
+containerId=$(docker create ${INPUT_DOCKER_REPOSITORY}:latest)
 docker cp "$containerId":/script.sh .
 docker rm "$containerId"
+docker image ls
 
 echo "${INPUT_DOCKER_PASSWORD}" | docker login -u ${INPUT_DOCKER_USERNAME} --password-stdin docker.io
 
-docker push test_name:latest
+docker push ${INPUT_DOCKER_REPOSITORY}:latest
 
 # tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 # (

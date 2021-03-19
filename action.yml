@@ -52,7 +52,9 @@ inputs:
   docker_password:
     description: 'Password to dockerhub'
     required: true
-
+  docker_repository:
+    description: 'Docker image name'
+    required: true
 
 
 runs:
