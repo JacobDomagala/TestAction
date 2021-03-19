@@ -28,22 +28,29 @@ fi
 
 GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
 
+docker build -t test_name:latest .
 
-tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
-(
-    cd "$tmp_dir" || exit 1
-    git init
-    git config user.name "$GITHUB_ACTOR"
-    git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-    git pull "$GIT_REPOSITORY_URL"
-
-    # Generate graph
-    python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
-
-    git add .
-    git commit -m "$INPUT_COMMIT_MESSAGE"
-    git push --set-upstream "$GIT_REPOSITORY_URL" master
-) || exit 1
+containerId=$(docker create test_name:latest)
+docker cp "$containerId":/scrip.sh .
+docker rm "$containerId"
 
 
-rm -rf "$tmp_dir"
+# tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
+# (
+#     cd "$tmp_dir" || exit 1
+#     git init
+#     git config user.name "$GITHUB_ACTOR"
+#     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+#     git pull "$GIT_REPOSITORY_URL"
+
+#     # Generate graph
+#     python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
+
+#     git add .
+#     git commit -m "$INPUT_COMMIT_MESSAGE"
+#     git push --set-upstream "$GIT_REPOSITORY_URL" master
+# ) || exit 1
+# rm -rf "$tmp_dir"
+
+cat script.sh
+echo 10 20 > temp.txt
