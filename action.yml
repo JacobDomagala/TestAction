@@ -46,6 +46,12 @@ inputs:
     description: 'file with build time'
   commit_message:
     description: 'Commit message for wiki page'
+  docker_username:
+    description: 'Username to dockerhub'
+    required: true
+  docker_password:
+    description: 'Password to dockerhub'
+    required: true
 
 
 
