@@ -31,7 +31,7 @@ GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_RE
 docker build -t test_name:latest .
 
 containerId=$(docker create test_name:latest)
-docker cp "$containerId":/scrip.sh .
+docker cp "$containerId":/script.sh .
 docker rm "$containerId"
 
 
