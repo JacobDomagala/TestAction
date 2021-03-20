@@ -52,7 +52,8 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
     git pull "$GIT_REPOSITORY_URL"
 
-    cat "$GITHUB_WORKSPACE"/output.txt
+    build_time=$(ls -l | grep -oP 'real\s+\K\d+m\d+\.\d+s' "$GITHUB_WORKSPACE"/output.txt)
+    echo $build_time
 
     # Generate graph
     # python3 /generate_graph.py -i $tmp_dir/"${INPUT_FILENAME}" -o $tmp_dir/"${INPUT_FILENAME}"
