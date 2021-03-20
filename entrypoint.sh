@@ -40,10 +40,6 @@ GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_RE
 
 docker build -t ${INPUT_DOCKER_REPOSITORY}:latest . | tee output.txt
 
-containerId=$(docker create ${INPUT_DOCKER_REPOSITORY}:latest)
-docker cp "$containerId":/time.txt .
-docker rm "$containerId"
-
 echo "${INPUT_DOCKER_PASSWORD}" | docker login -u ${INPUT_DOCKER_USERNAME} --password-stdin docker.io
 
 #docker push ${INPUT_DOCKER_REPOSITORY}:latest
@@ -56,8 +52,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
     git pull "$GIT_REPOSITORY_URL"
 
-    cat "$GITHUB_WORKSPACE"/time.txt
-    cat "$GITHUB_WORKSPACE"output.txt
+    cat "$GITHUB_WORKSPACE"/output.txt
 
     # Generate graph
     # python3 /generate_graph.py -i $tmp_dir/"${INPUT_FILENAME}" -o $tmp_dir/"${INPUT_FILENAME}"
