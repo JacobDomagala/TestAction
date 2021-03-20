@@ -38,33 +38,33 @@ fi
 
 GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
 
-docker build -t ${INPUT_DOCKER_REPOSITORY}:latest .
+docker build -t ${INPUT_DOCKER_REPOSITORY}:latest . | tee output.txt
 
 containerId=$(docker create ${INPUT_DOCKER_REPOSITORY}:latest)
-docker cp "$containerId":/script.sh .
+docker cp "$containerId":/time.txt .
 docker rm "$containerId"
-docker image ls
 
 echo "${INPUT_DOCKER_PASSWORD}" | docker login -u ${INPUT_DOCKER_USERNAME} --password-stdin docker.io
 
-docker push ${INPUT_DOCKER_REPOSITORY}:latest
+#docker push ${INPUT_DOCKER_REPOSITORY}:latest
 
-# tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
-# (
-#     cd "$tmp_dir" || exit 1
-#     git init
-#     git config user.name "$GITHUB_ACTOR"
-#     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-#     git pull "$GIT_REPOSITORY_URL"
+tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
+(
+    cd "$tmp_dir" || exit 1
+    git init
+    git config user.name "$GITHUB_ACTOR"
+    git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+    git pull "$GIT_REPOSITORY_URL"
 
-#     # Generate graph
-#     python3 /generate_graph.py -o $tmp_dir/"${INPUT_FILENAME}"
+    cat "$GITHUB_WORKSPACE"/time.txt
+    cat "$GITHUB_WORKSPACE"output.txt
 
-#     git add .
-#     git commit -m "$INPUT_COMMIT_MESSAGE"
-#     git push --set-upstream "$GIT_REPOSITORY_URL" master
-# ) || exit 1
-# rm -rf "$tmp_dir"
+    # Generate graph
+    # python3 /generate_graph.py -i $tmp_dir/"${INPUT_FILENAME}" -o $tmp_dir/"${INPUT_FILENAME}"
 
-cat script.sh
-echo 10 20 > temp.txt
+    # git add .
+    # git commit -m "$INPUT_COMMIT_MESSAGE"
+    # git push --set-upstream "$GIT_REPOSITORY_URL" master
+) || exit 1
+
+rm -rf "$tmp_dir"
