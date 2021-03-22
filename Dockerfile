@@ -16,7 +16,8 @@
 #     python3 python3-pip git docker-ce docker-ce-cli containerd.io
 
 # RUN pip3 install --no-cache --upgrade pip wheel && \
-#     pip3 install --no-cache numpy matplotlib PyGithub requests
+#     pip3 install --no-cache pandas numpy matplotlib PyGithub requests
+
 
 FROM jdomagala/docker_with_matplotlib:latest
 
