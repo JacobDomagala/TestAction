@@ -5,6 +5,8 @@ from github import Github
 import numpy as np
 import os
 import requests
+import csv
+from datetime import date
 
 # Get file name from user
 parser = argparse.ArgumentParser()
@@ -12,15 +14,17 @@ parser.add_argument('-t', '--time', help='Build time', required=True)
 parser.add_argument('-r', '--run_id', help='Run ID', required=True)
 parser.add_argument('-o', '--output', help='Output file name', required=True)
 graph_file_name = parser.parse_args().output
-build_time = parser.parse_args().time
-run_id = parser.parse_args().run_id
+new_build_time = parser.parse_args().time
+new_run_num = parser.parse_args().run_id
+new_date = date.today().strftime("%d %b %Y")
 
-print(f"Build time is {build_time} RUN_ID is {run_id}")
+print(f"Build time is {new_build_time} RUN_ID is {new_run_num} date is {new_date}")
 
-time_in_min = build_time[0: build_time.index("m")]
-time_in_seconds = build_time[build_time.index("m") + 1: build_time.index(".")]
+time_in_min = int(new_build_time[0: new_build_time.index("m")])
+time_in_seconds = int(new_build_time[new_build_time.index("m") + 1: new_build_time.index(".")])
+total_time_seconds = time_in_seconds + time_in_min * 60
 
-print(f"Build time minutes {time_in_min} in seconds is {time_in_seconds}")
+print(f"Build time minutes {time_in_min} in seconds is {time_in_seconds} total time {total_time_seconds}")
 
 # Input variables from Github action
 GITHUB_TOKEN = os.getenv('INPUT_GITHUB_TOKEN')
@@ -33,12 +37,12 @@ X_LABEL = os.getenv('INPUT_X_LABEL')
 Y_LABEL = os.getenv('INPUT_Y_LABEL')
 GRAPH_WIDTH = float(os.getenv('INPUT_GRAPH_WIDTH'))
 GRAPH_HEIGHT = float(os.getenv('INPUT_GRAPH_HEIGHT'))
-
+MAX_HISTORY_OF_BUILDS = 200
 print(f'Repo={REPO_NAME} Workflow={WORKFLOW_NAME}')
 
-g = Github(GITHUB_TOKEN)
-repo = g.get_repo(REPO_NAME)
-workflow = repo.get_workflow(id_or_name=WORKFLOW_NAME)
+# g = Github(GITHUB_TOKEN)
+# repo = g.get_repo(REPO_NAME)
+# workflow = repo.get_workflow(id_or_name=WORKFLOW_NAME)
 
 # Data to be plotted
 timings = []
@@ -46,91 +50,124 @@ run_nums = []
 dates = []
 
 
-workflow_runs = workflow.get_runs()
+#workflow_runs = workflow.get_runs()
+
+with open("last_builds.csv", "a+") as f:
+    f.seek(0)
+    builds = csv.DictReader(f)
+    for historic_build in builds:
+        build_time = int(historic_build["time"])
+        build_run = int(historic_build["run_num"])
+        build_date = historic_build["date"]
+        print(f"Historic build with build_time{build_time} and build_run{build_run} with date={build_date}")
+        timings.append(build_time/60)
+        run_nums.append(build_run)
+        dates.append(build_date)
+
+    writer = csv.DictWriter(f, ["time", "run_num","date"])
+    writer.writerow({'time': total_time_seconds, 'run_num': new_run_num, 'date': new_date})
+    print(f"Adding new row! {total_time_seconds} {new_run_num} {new_date}")
+
+    timings.append(total_time_seconds/60)
+    run_nums.append(new_run_num)
+    dates.append(new_date)
 
 
-print(f'workflow_runs.totalCount={workflow_runs.totalCount} and requested_last_runs={REQUESTED_N_LAST_BUILDS}')
-
-last_n_runs = min(REQUESTED_N_LAST_BUILDS, workflow_runs.totalCount)
-
-print(f'last_n_runs={last_n_runs}')
+#print(f'workflow_runs.totalCount={workflow_runs.totalCount} and requested_last_runs={REQUESTED_N_LAST_BUILDS}')
+#last_n_runs = min(REQUESTED_N_LAST_BUILDS, workflow_runs.totalCount)
+#print(f'last_n_runs={last_n_runs}')
 
 run_count = 0
 total_run_time = 0
 
-for run in workflow_runs:
-    if(run.head_branch == BRANCH_NAME and run.status == 'completed'):
-        run_timing = run.timing()
+# for run in workflow_runs:
+#     if(run.head_branch == BRANCH_NAME and run.status == 'completed'):
+#         run_timing = run.timing()
 
-        # Convert ms to min
-        run_in_min = run_timing.run_duration_ms / 60000.0
-        timings.append(run_in_min)
-        dates.append(run.created_at)
-        run_nums.append(run.run_number)
+#         # Convert ms to min
+#         run_in_min = run_timing.run_duration_ms / 60000.0
+#         timings.append(run_in_min)
+#         dates.append(run.created_at)
+#         run_nums.append(run.run_number)
 
-        print(f"run_number:{run.run_number} status:{run.status} on branch:{run.head_branch} created at:{run.created_at} took:{run_timing.run_duration_ms}ms")
-        run_count+=1
-        total_run_time += run_in_min
-    else:
-        print(f'Discarding run:{run.run_number} status:{run.status} branch:{run.head_branch}')
+#         print(f"run_number:{run.run_number} status:{run.status} on branch:{run.head_branch} created at:{run.created_at} took:{run_timing.run_duration_ms}ms")
+#         run_count+=1
+#         total_run_time += run_in_min
+#     else:
+#         print(f'Discarding run:{run.run_number} status:{run.status} branch:{run.head_branch}')
 
-    if run_count >= last_n_runs:
-        break
+#     if run_count >= last_n_runs:
+#         break
 
 #dates = matplotlib.dates.date2num(run_nums)
 #matplotlib.pyplot.plot_date(dates, values)
+
+# SMALL_SIZE = 15
+# MEDIUM_SIZE = 25
+# BIGGER_SIZE = 35
+
+# plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
+# plt.rc('axes', titlesize=BIGGER_SIZE)    # fontsize of the axes title
+# plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+# plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+# plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+# plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+# plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+# plt.rc('font', family='serif')           # font family
+
+# plot
+#plt.style.use('seaborn')
+
+# fig, ax = plt.subplots(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
+
+# #plt.plot_date(dates, timings, color='b')
+# fig.text(0.05,0.02, f'{dates[-1]}')
+# fig.text(0.95,0.02, f'{dates[0]}', horizontalalignment='right')
+
+# ax.plot(run_nums, timings, 'bo-')
+# ax.grid(True)
+
+# #plt.gcf().autofmt_xdate()
+
+# plt.title(GRAPH_TITLE)
+# plt.xlabel(X_LABEL)
+# plt.ylabel(Y_LABEL)
+
+# plt.savefig()
 
 SMALL_SIZE = 15
 MEDIUM_SIZE = 25
 BIGGER_SIZE = 35
 
-plt.rc('font', size=MEDIUM_SIZE)          # controls default text sizes
-plt.rc('axes', titlesize=BIGGER_SIZE)    # fontsize of the axes title
-plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
-plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
-plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
-plt.rc('font', family='serif')           # font family
+plt.rc('font', size=MEDIUM_SIZE, family='serif')
+plt.rc('axes', titlesize=BIGGER_SIZE, labelsize=MEDIUM_SIZE)
+plt.rc('xtick', labelsize=SMALL_SIZE)
+plt.rc('ytick', labelsize=SMALL_SIZE)
+plt.rc('legend', fontsize=SMALL_SIZE)
+plt.rc('figure', titlesize=BIGGER_SIZE)
 
 # plot
-#plt.style.use('seaborn')
-
 fig, ax = plt.subplots(figsize=(GRAPH_WIDTH, GRAPH_HEIGHT))
+plt.plot(run_nums, timings, color='b', marker='o')
+plt.grid(True)
 
-#plt.plot_date(dates, timings, color='b')
-fig.text(0.05,0.02, f'{dates[-1].day} {dates[-1].strftime("%B")} {dates[-1].year }')
-fig.text(0.95,0.02, f'{dates[0].day} {dates[0].strftime("%B")} {dates[0].year }', horizontalalignment='right')
+fig.text(0.05,0.02, dates[-1])
+fig.text(0.95,0.02, dates[0], horizontalalignment='right')
 
-ax.plot(run_nums, timings, 'bo-')
-ax.grid(True)
-
-#plt.gcf().autofmt_xdate()
-
-ticks = []
-counter = 0
-for i in run_nums:
-    counter += 1
-    if counter == 5:
-        ticks.append(i)
-        counter = 0
-
-plt.xticks(ticks)
 plt.title(GRAPH_TITLE)
 plt.xlabel(X_LABEL)
 plt.ylabel(Y_LABEL)
 
 plt.savefig(graph_file_name)
 
+# average_time = total_run_time / last_n_runs
 
-average_time = total_run_time / last_n_runs
+# BUILD_TIME = timings[0]
+# BADGE_COLOR = "green" if BUILD_TIME <= average_time else "red"
 
-BUILD_TIME = timings[0]
-BADGE_COLOR = "green" if BUILD_TIME <= average_time else "red"
+# print(f"Last build time = {BUILD_TIME} average build = {average_time} color = {BADGE_COLOR} ")
+# url = f"https://img.shields.io/badge/vt:develop%20build%20time-{format(BUILD_TIME,'.1f')}%20min-{BADGE_COLOR}.svg"
 
-print(f"Last build time = {BUILD_TIME} average build = {average_time} color = {BADGE_COLOR} ")
-url = f"https://img.shields.io/badge/vt:develop%20build%20time-{format(BUILD_TIME,'.1f')}%20min-{BADGE_COLOR}.svg"
-
-print(f'Beginning file {url}')
-r = requests.get(url)
-open('build_status_badge.svg', 'wb').write(r.content)
+# print(f'Beginning file {url}')
+# r = requests.get(url)
+# open('build_status_badge.svg', 'wb').write(r.content)
