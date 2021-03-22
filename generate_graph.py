@@ -8,8 +8,19 @@ import requests
 
 # Get file name from user
 parser = argparse.ArgumentParser()
+parser.add_argument('-t', '--time', help='Build time', required=True)
+parser.add_argument('-r', '--run_id', help='Run ID', required=True)
 parser.add_argument('-o', '--output', help='Output file name', required=True)
 graph_file_name = parser.parse_args().output
+build_time = parser.parse_args().time
+run_id = parser.parse_args().run_id
+
+print(f"Build time is {build_time} RUN_ID is {run_id}")
+
+time_in_min = build_time[0: build_time.index("m")]
+time_in_seconds = build_time[build_time.index("m") + 1: build_time.index(".")]
+
+print(f"Build time minutes {time_in_min} in seconds is {time_in_seconds}")
 
 # Input variables from Github action
 GITHUB_TOKEN = os.getenv('INPUT_GITHUB_TOKEN')
