@@ -93,7 +93,7 @@ def create_md_page(templates_text):
         "## Subsection\n"
         " Some interesting data </br>\n"
         "## Second Subsection\n"
-        f"[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})"
+        f"[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})\n"
         f"{templates_string}"
         "\n"
         )
