@@ -44,7 +44,8 @@ def generate_graph(templates_total_times):
     barWidth = 0.50
     fig, ax = plt.subplots(figsize=(19, 10))
     # plt.subplots_adjust(left=0.05, bottom=0.6, right=0.95, top=0.95)
-    plt.rc('font', size=9, family='serif')
+    plt.rc('font', size=15, family='serif')
+    plt.rc('ytick', labelsize=15)
 
     templates_total_times = [t//1000 for t in templates_total_times]
     TTT = templates_total_times
@@ -80,25 +81,41 @@ def generate_graph(templates_total_times):
 
     plt.savefig(EXP_TEMPLATE_DIR)
 
-
 def create_md_page(templates_text):
+    html_table = "<details> <summary> See more </summary>"\
+        "<table style=\"width:100%\">"\
+        "<tr>"\
+        "<th>Label </th>"\
+        "<th>Name </th>"\
+        "<th>Times </th>"\
+        "<th>Avg (ms)</th>"\
+        "</tr>"
+
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
-        "|-------|------|-------|----------|\n"
+        "|---|:---:|---|---|\n"
     for idx, (name, times, avg)  in templates_text.items():
-        templates_string += f"| {idx} | {name} | {times} | {avg} |\n"
+        templates_string += f"| **{idx}** | `{name}`` | **{times}** | **{avg}** |\n"
+
+        # Change brackets to HTML friendly type
+        name = name.replace("<", "&lt;").replace(">", "&gt;")
+        html_table += f"<tr><td><b>{idx}</b></td>"\
+            f"<td><pre>{name}</pre></td>"\
+            f"<td><b>{times}</b></td>"\
+            f"<td>{avg}</td></tr>"\
+
+    html_table += "</table></details>"
 
     with open("Build_Stats.md", "w") as f:
-        f.write(f"### build history </br>\n"
+        f.write(f"### Build History </br>\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})\n"
         "</br>\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})\n"
-        "### Another section\n"
-        "## Subsection\n"
-        " Some interesting data </br>\n"
-        "## Second Subsection\n"
+        "### Build stats\n"
+        "## Templates that took longest to instantiate \n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})\n"
         f"{templates_string}"
-        "\n"
+        "***"
+        f"{html_table}"
         )
 
 if __name__ == "__main__":
