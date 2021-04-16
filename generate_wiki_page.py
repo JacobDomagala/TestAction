@@ -108,7 +108,7 @@ def generate_last_build_table():
     dates = last_builds['date'].tolist()
     commits = last_builds['commit'].tolist()
 
-    last_builds_table = "<details> <summary> Click to see past builds </summary>"\
+    last_builds_table = "<details> <summary> <h2> <b> Click to see past builds </b> </h2> </summary>"\
         "<table style=\"width:100%\">"\
         "<tr>"\
         "<th>Run</th>"\
@@ -125,7 +125,7 @@ def generate_last_build_table():
             f"<td>{convert_time(total_timings[i])}</td>"\
             f"<td><b>{convert_time(vt_timings[i])}</b></td>"\
             f"<td><b>{convert_time(tests_timings[i])}</b></td>"\
-            f"<td>github.com/{REPO_NAME}/{commits[i]}</td></tr>"\
+            f"<td><a href='github.com/{REPO_NAME}/{commits[i]}'>Commit</a></td></tr>"\
 
     last_builds_table += "</table></details>\n"
 
@@ -141,7 +141,7 @@ def create_md_page(last_builds, templates_text):
     with open("Build_Stats.md", "w") as f:
         f.write(f"# Build History\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})\n"
-        f"{last_builds}"
+        f"{last_builds} \n"
         "*** \n"
         "# Build stats\n"
         "## Templates that took longest to instantiate \n"
