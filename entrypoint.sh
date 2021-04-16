@@ -39,7 +39,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git pull "$GIT_REPOSITORY_URL"
 
     # Generate graph
-    python3 /generate_graph.py -vt "8m40.s" -te "35m40.s" -r 20
+    python3 /generate_graph.py -vt "7m20.s" -te "38m15.s" -r 21
     python3 /generate_wiki_page.py
 
     git add .

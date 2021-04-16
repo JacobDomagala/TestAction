@@ -32,7 +32,7 @@ def generate_graph(templates, templates_total_times):
 
     barWidth = 0.50
     fig, ax = plt.subplots(figsize=(19, 10))
-    plt.subplots_adjust(left=0.05, bottom=0.6, right=0.95, top=0.95)
+    # plt.subplots_adjust(left=0.05, bottom=0.6, right=0.95, top=0.95)
     plt.rc('font', size=9, family='serif')
 
     templates_total_times = [t//1000 for t in templates_total_times]
@@ -70,13 +70,19 @@ def generate_graph(templates, templates_total_times):
     templates = [f"{idx}: {line}\n\n\n" for idx, line in enumerate(templates)]
     test = "".join(item for item in templates)
 
-    fig.text(0.05, 0.01, f"{test}", wrap=True)
+    # fig.text(0.05, 0.01, f"{test}", wrap=True)
 
 
     plt.savefig(EXP_TEMPLATE_DIR)
 
+    return test
 
-def create_md_page():
+
+def create_md_page(templates_text):
+    templates_string = "| Label | Name | Times | Avg (ms) |\n"
+    for line in templates_text:
+        templates_string += f"| Label | {line} | Times | Avg (ms) |\n"
+
     with open("Build_Stats.md", "w") as f:
         f.write(f"### build history </br>\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})\n"
@@ -87,10 +93,11 @@ def create_md_page():
         " Some interesting data </br>\n"
         "## Second Subsection\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})"
+        f"{templates_string}"
         "\n"
         )
 
 if __name__ == "__main__":
     templates, templates_total_times = prepare_data()
-    generate_graph(templates, templates_total_times)
-    create_md_page()
+    templates_text = generate_graph(templates, templates_total_times)
+    create_md_page(templates_text)
