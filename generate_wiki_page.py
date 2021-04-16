@@ -13,6 +13,7 @@ BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
 NUM_TOP_TEMPLATES = 15
 
+
 def prepare_data():
     templates_total_times = []
     templates = dict()
@@ -91,7 +92,11 @@ def generate_graph(templates_total_times):
 
     plt.savefig(EXP_TEMPLATE_DIR)
 
+def convert_time(time_in_sec):
+    return f"{time_in_sec//60}min {time_in_sec%60}sec"
+
 def generate_last_build_table():
+    REPO_NAME = os.getenv('GITHUB_REPOSITORY')
     PREVIOUS_BUILDS_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_TIMES_FILENAME')}"
     df = pd.read_csv(PREVIOUS_BUILDS_FILENAME)
     last_builds = df.tail(int(os.getenv('INPUT_NUM_LAST_BUILD')) - 1)
@@ -117,12 +122,12 @@ def generate_last_build_table():
     for i in range(-1, -last_builds.shape[0], -1):
         last_builds_table += f"<tr><td><b>{run_nums[i]}</b></td>"\
             f"<td>{dates[i]}</td>"\
-            f"<td>{total_timings[i]}</td>"\
-            f"<td><b>{vt_timings[i]}</b></td>"\
-            f"<td><b>{tests_timings[i]}</b></td>"\
-            f"<td>{commits[i]}</td></tr>"\
+            f"<td>{convert_time(total_timings[i])}</td>"\
+            f"<td><b>{convert_time(vt_timings[i])}</b></td>"\
+            f"<td><b>{convert_time(tests_timings[i])}</b></td>"\
+            f"<td>github.com/{REPO_NAME}/{commits[i]}</td></tr>"\
 
-    last_builds_table += "</table></details>"
+    last_builds_table += "</table></details>\n"
 
     return last_builds_table
 
