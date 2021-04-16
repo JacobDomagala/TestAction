@@ -80,7 +80,7 @@ def generate_graph(templates, templates_total_times):
 
 def create_md_page(templates_text):
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
-        "|-------|------|-------|----------|"
+        "|-------|------|-------|----------|\n"
     for line in templates_text:
         templates_string += f"| Label | {line} | Times | Avg (ms) |\n"
 
