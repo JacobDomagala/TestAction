@@ -21,15 +21,6 @@ if [ -z "${INPUT_GITHUB_PERSONAL_TOKEN}" ]; then
     exit 1
 fi
 
-if [ -z "${INPUT_DOCKER_USERNAME}" ]; then
-    echo "Docker username is missing!"
-    exit 1
-fi
-
-if [ -z "${INPUT_DOCKER_PASSWORD}" ]; then
-    echo "Docker password is missing!"
-    exit 1
-fi
 
 if [ -z "${INPUT_COMMIT_MESSAGE:-}" ]; then
     echo "INPUT_COMMIT_MESSAGE not set, using default"
