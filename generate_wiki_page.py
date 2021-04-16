@@ -142,8 +142,7 @@ def create_md_page(last_builds, templates_text):
         "## Templates that took longest to instantiate \n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})\n"
         f"{templates_string}"
-        "*** \n"
-        f"{html_table}"
+        "***"
         )
 
 if __name__ == "__main__":
