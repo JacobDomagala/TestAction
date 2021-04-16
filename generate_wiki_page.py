@@ -96,12 +96,12 @@ def generate_last_build_table():
     df = pd.read_csv(PREVIOUS_BUILDS_FILENAME)
     last_builds = df.tail(int(os.getenv('INPUT_NUM_LAST_BUILD')) - 1)
 
-    run_nums = reversed(last_builds['run_num'].tolist())
-    vt_timings = reversed(last_builds['vt'].tolist())
-    tests_timings = reversed(last_builds['tests'].tolist())
+    run_nums = last_builds['run_num'].tolist()
+    vt_timings = last_builds['vt'].tolist()
+    tests_timings = last_builds['tests'].tolist()
     total_timings = [sum(x) for x in zip(vt_timings, tests_timings)]
-    dates = reversed(last_builds['date'].tolist())
-    commits = reversed(last_builds['commit'].tolist())
+    dates = last_builds['date'].tolist()
+    commits = last_builds['commit'].tolist()
 
     last_builds_table = "<details> <summary> Click to see past builds </summary>"\
         "<table style=\"width:100%\">"\
@@ -114,7 +114,7 @@ def generate_last_build_table():
         "<th>Commit SHA</th>"\
         "</tr>"
 
-    for i in range(last_builds.shape[0]):
+    for i in range(-1, -last_builds.shape[0], -1):
         last_builds_table += f"<tr><td><b>{run_nums[i]}</b></td>"\
             f"<td>{dates[i]}</td>"\
             f"<td>{total_timings[i]}</td>"\
