@@ -32,7 +32,7 @@ def prepare_data():
                     times_used = int(times_and_avg[:times_and_avg.index(" ")])
                     avg_time = int(times_and_avg[times_and_avg.index("avg") + 3:times_and_avg.index("ms")])
 
-                    templates[index] = {template_name, times_used, avg_time}
+                    templates[index] = (template_name, times_used, avg_time)
 
                 break
 
