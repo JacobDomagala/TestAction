@@ -125,7 +125,7 @@ def generate_last_build_table():
             f"<td>{convert_time(total_timings[i])}</td>"\
             f"<td>{convert_time(vt_timings[i])}</td>"\
             f"<td>{convert_time(tests_timings[i])}</td>"\
-            f"<td><a href='github.com/{REPO_NAME}/commit/{commits[i]}'>Commit</a></td></tr>"\
+            f"<td><a href='https://github.com/{REPO_NAME}/commit/{commits[i]}'>Commit</a></td></tr>"\
 
     last_builds_table += "</table></details>\n"
 
@@ -141,6 +141,7 @@ def create_md_page(last_builds, templates_text):
     with open("Build_Stats.md", "w") as f:
         f.write(f"# Build History\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})\n"
+        "## Past Builds\n"
         f"{last_builds} \n"
         "*** \n"
         "# Build stats\n"
