@@ -91,34 +91,52 @@ def generate_graph(templates_total_times):
 
     plt.savefig(EXP_TEMPLATE_DIR)
 
-def create_md_page(templates_text):
-    html_table = "<details> <summary> See more </summary>"\
+def generate_last_build_table():
+    PREVIOUS_BUILDS_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_TIMES_FILENAME')}"
+    df = pd.read_csv(PREVIOUS_BUILDS_FILENAME)
+    last_builds = df.tail(int(os.getenv('INPUT_NUM_LAST_BUILD')) - 1)
+
+    run_nums = reversed(last_builds['run_num'].tolist())
+    vt_timings = reversed(last_builds['vt'].tolist())
+    tests_timings = reversed(last_builds['tests'].tolist())
+    total_timings = [sum(x) for x in zip(vt_timings, tests_timings)]
+    dates = reversed(last_builds['date'].tolist())
+    commits = reversed(last_builds['commit'].tolist())
+
+    last_builds_table = "<details> <summary> Click to see past builds </summary>"\
         "<table style=\"width:100%\">"\
         "<tr>"\
-        "<th>Label </th>"\
-        "<th>Name </th>"\
-        "<th>Times </th>"\
-        "<th>Avg (ms)</th>"\
+        "<th>Run</th>"\
+        "<th>Date</th>"\
+        "<th>Total time</th>"\
+        "<th>vt-lib time</th>"\
+        "<th>Tests and Examples</th>"\
+        "<th>Commit SHA</th>"\
         "</tr>"
+
+    for i in range(last_builds.shape[0]):
+        last_builds_table += f"<tr><td><b>{run_nums[i]}</b></td>"\
+            f"<td>{dates[i]}</td>"\
+            f"<td>{total_timings[i]}</td>"\
+            f"<td><b>{vt_timings[i]}</b></td>"\
+            f"<td><b>{tests_timings[i]}</b></td>"\
+            f"<td>{commits[i]}</td></tr>"\
+
+    last_builds_table += "</table></details>"
+
+    return last_builds_table
+
+def create_md_page(last_builds, templates_text):
 
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
         "|---|:---:|---|---|\n"
     for idx, (name, times, avg)  in templates_text.items():
         templates_string += f"| **{idx}** | `{name}` | **{times}** | **{avg}** |\n"
 
-        # Change brackets to HTML friendly type
-        name = name.replace("<", "&lt;").replace(">", "&gt;")
-        html_table += f"<tr><td><b>{idx}</b></td>"\
-            f"<td>{name}</td>"\
-            f"<td><b>{times}</b></td>"\
-            f"<td>{avg}</td></tr>"\
-
-    html_table += "</table></details>"
-
     with open("Build_Stats.md", "w") as f:
         f.write(f"# Build History\n"
-        f"[![](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})\n"
+        f"{last_builds}"
         "*** \n"
         "# Build stats\n"
         "## Templates that took longest to instantiate \n"
@@ -131,4 +149,5 @@ def create_md_page(templates_text):
 if __name__ == "__main__":
     templates, templates_total_times = prepare_data()
     generate_graph(templates_total_times)
-    create_md_page(templates)
+    last_builds = generate_last_build_table()
+    create_md_page(last_builds, templates)

@@ -45,10 +45,6 @@ inputs:
   commit_message:
     description: 'Commit message for wiki page'
     default: Push build time graph
-  run_number:
-    description: 'Run number of the current workflow'
-    default: ${{github.run_number}}
-
 
 runs:
   using: "docker"
