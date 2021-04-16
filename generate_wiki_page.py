@@ -108,7 +108,7 @@ def generate_last_build_table():
     dates = last_builds['date'].tolist()
     commits = last_builds['commit'].tolist()
 
-    last_builds_table = "<details> <summary> <h2> <b> Click to see past builds </b> </h2> </summary>"\
+    last_builds_table = "<details> <summary> <b> CLICK HERE TO SEE PAST BUILDS </b> </summary>"\
         "<table style=\"width:100%\">"\
         "<tr>"\
         "<th>Run</th>"\
@@ -123,9 +123,9 @@ def generate_last_build_table():
         last_builds_table += f"<tr><td><b>{run_nums[i]}</b></td>"\
             f"<td>{dates[i]}</td>"\
             f"<td>{convert_time(total_timings[i])}</td>"\
-            f"<td><b>{convert_time(vt_timings[i])}</b></td>"\
-            f"<td><b>{convert_time(tests_timings[i])}</b></td>"\
-            f"<td><a href='github.com/{REPO_NAME}/{commits[i]}'>Commit</a></td></tr>"\
+            f"<td>{convert_time(vt_timings[i])}</td>"\
+            f"<td>{convert_time(tests_timings[i])}</td>"\
+            f"<td><a href='github.com/{REPO_NAME}/commit/{commits[i]}'>Commit</a></td></tr>"\
 
     last_builds_table += "</table></details>\n"
 
