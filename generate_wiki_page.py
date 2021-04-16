@@ -11,6 +11,8 @@ EXP_TEMPLATE_DIR = f"{OUTPUT_DIR}/most_expensive_templates.png"
 GRAPH_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_GRAPH_FILENAME')}"
 BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
+NUM_TOP_TEMPLATES = 15
+
 def prepare_data():
     templates_total_times = []
     templates = dict()
@@ -20,17 +22,17 @@ def prepare_data():
 
         for idx, line in enumerate(lines):
             if line.startswith("**** Templates that took longest to instantiate:"):
-                for index, template in enumerate(lines[idx+1:idx+10]):
+                for index, template in enumerate(lines[idx + 1 : idx + NUM_TOP_TEMPLATES]):
                     delimiter = template.index("ms")
-                    templates_total_times.append(int(template[:delimiter]))
+                    templates_total_times.append(int(template[ : delimiter]))
 
-                    tmp_text = template[delimiter+3:]
+                    tmp_text = template[delimiter + 3 : ]
                     end_of_template_name = tmp_text.index("(")
                     template_name = tmp_text[:end_of_template_name - 1]
 
-                    times_and_avg = tmp_text[end_of_template_name+1:]
+                    times_and_avg = tmp_text[end_of_template_name + 1 : ]
                     times_used = int(times_and_avg[:times_and_avg.index(" ")])
-                    avg_time = int(times_and_avg[times_and_avg.index("avg") + 3:times_and_avg.index("ms")])
+                    avg_time = int(times_and_avg[times_and_avg.index("avg") + 3 : times_and_avg.index("ms")])
 
                     templates[index] = (template_name, times_used, avg_time)
 
