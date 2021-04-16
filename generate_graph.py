@@ -67,10 +67,10 @@ def generate_graph(vt, tests, run_nums, dates):
     BIGGER_SIZE = 35
 
     plt.rc('font', size=MEDIUM_SIZE, family='serif')
-    plt.rc('axes', titlesize=MEDIUM_SIZE, labelsize=SMALL_SIZE)
-    plt.rc('xtick', labelsize=SMALL_SIZE)
-    plt.rc('ytick', labelsize=SMALL_SIZE)
-    plt.rc('legend', fontsize=SMALL_SIZE)
+    plt.rc('axes', titlesize=MEDIUM_SIZE, labelsize=MEDIUM_SIZE)
+    plt.rc('xtick', labelsize=MEDIUM_SIZE)
+    plt.rc('ytick', labelsize=MEDIUM_SIZE)
+    plt.rc('legend', fontsize=MEDIUM_SIZE)
     plt.rc('figure', titlesize=BIGGER_SIZE)
 
     GRAPH_WIDTH = float(os.getenv('INPUT_GRAPH_WIDTH'))
@@ -92,6 +92,7 @@ def generate_graph(vt, tests, run_nums, dates):
     ax3.plot(run_nums, tests_timings, color='g', marker='d', label='tests')
 
     set_common_axis_data([ax1, ax2, ax3])
+    plt.tight_layout()
 
     plt.savefig(f"{OUTPUT_DIR}/{os.getenv('INPUT_GRAPH_FILENAME')}")
 

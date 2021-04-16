@@ -12,8 +12,8 @@ jobs:
         with:
           github_personal_token: ${{ secrets.GPAT }}
           title: Last builds
-          graph_width: 19
-          graph_height: 8
+          graph_width: 20
+          graph_height: 20
           build_stats_output: "build_stats"
           # build_times_filename: "build_stats/last_builds.csv"
           # build_result_filename: "build_stats/build_result.txt"

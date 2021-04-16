@@ -41,11 +41,19 @@ def prepare_data():
 
 def generate_graph(templates_total_times):
 
+    SMALL_SIZE = 15
+    MEDIUM_SIZE = 25
+    BIGGER_SIZE = 35
+
+    plt.rc('font', size=MEDIUM_SIZE, family='serif')
+    plt.rc('axes', titlesize=MEDIUM_SIZE, labelsize=MEDIUM_SIZE)
+    plt.rc('xtick', labelsize=MEDIUM_SIZE)
+    plt.rc('ytick', labelsize=BIGGER_SIZE)
+    plt.rc('legend', fontsize=BIGGER_SIZE)
+    plt.rc('figure', titlesize=BIGGER_SIZE)
+
     barWidth = 0.50
-    fig, ax = plt.subplots(figsize=(19, 10))
-    # plt.subplots_adjust(left=0.05, bottom=0.6, right=0.95, top=0.95)
-    plt.rc('font', size=15, family='serif')
-    plt.rc('ytick', labelsize=15)
+    fig, ax = plt.subplots(figsize=(19, 14))
 
     templates_total_times = [t//1000 for t in templates_total_times]
     TTT = templates_total_times
@@ -53,7 +61,7 @@ def generate_graph(templates_total_times):
     # Add x, y gridlines
     ax.grid(b = True, color ='grey',
         linestyle ='-.', linewidth = 0.5,
-        alpha = 0.2)
+        alpha = 0.8)
 
     # Remove x, y Ticks
     ax.xaxis.set_ticks_position('none')
@@ -70,7 +78,7 @@ def generate_graph(templates_total_times):
     ax.barh(yAxies, TTT, height=barWidth, label ='total time (sec)')
 
     for idx, i in enumerate(ax.patches):
-        plt.text(i.get_width()+0.2, i.get_y()+0.5, str(round((i.get_width()), 2)), fontsize = 10, fontweight ='bold', color ='gray')
+        plt.text(i.get_width()+0.2, i.get_y()+0.5, str(round((i.get_width()), 2)), fontsize = BIGGER_SIZE, color ='black')
 
 
     yTicks = range(len(TTT))
@@ -94,27 +102,27 @@ def create_md_page(templates_text):
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
         "|---|:---:|---|---|\n"
     for idx, (name, times, avg)  in templates_text.items():
-        templates_string += f"| **{idx}** | `{name}`` | **{times}** | **{avg}** |\n"
+        templates_string += f"| **{idx}** | `{name}` | **{times}** | **{avg}** |\n"
 
         # Change brackets to HTML friendly type
         name = name.replace("<", "&lt;").replace(">", "&gt;")
         html_table += f"<tr><td><b>{idx}</b></td>"\
-            f"<td><pre>{name}</pre></td>"\
+            f"<td>{name}</td>"\
             f"<td><b>{times}</b></td>"\
             f"<td>{avg}</td></tr>"\
 
     html_table += "</table></details>"
 
     with open("Build_Stats.md", "w") as f:
-        f.write(f"### Build History </br>\n"
+        f.write(f"# Build History\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})\n"
-        "</br>\n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})\n"
-        "### Build stats\n"
+        "*** \n"
+        "# Build stats\n"
         "## Templates that took longest to instantiate \n"
         f"[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})\n"
         f"{templates_string}"
-        "***"
+        "*** \n"
         f"{html_table}"
         )
 
