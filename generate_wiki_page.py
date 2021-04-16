@@ -84,7 +84,7 @@ def generate_graph(templates_total_times):
 def create_md_page(templates_text):
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
         "|-------|------|-------|----------|\n"
-    for idx, (name, times, avg)  in templates_text:
+    for idx, (name, times, avg)  in templates_text.items():
         templates_string += f"| {idx} | {name} | {times} | {avg} |\n"
 
     with open("Build_Stats.md", "w") as f:
