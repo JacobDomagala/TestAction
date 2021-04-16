@@ -68,18 +68,19 @@ def generate_graph(templates, templates_total_times):
 
 
     templates = [f"{idx}: {line}\n\n\n" for idx, line in enumerate(templates)]
-    test = "".join(item for item in templates)
+    # test = "".join(item for item in templates)
 
     # fig.text(0.05, 0.01, f"{test}", wrap=True)
 
 
     plt.savefig(EXP_TEMPLATE_DIR)
 
-    return test
+    return templates
 
 
 def create_md_page(templates_text):
-    templates_string = "| Label | Name | Times | Avg (ms) |\n"
+    templates_string = "| Label | Name | Times | Avg (ms) |\n"\
+        "|-------|------|-------|----------|"
     for line in templates_text:
         templates_string += f"| Label | {line} | Times | Avg (ms) |\n"
 
