@@ -15,7 +15,7 @@ def prepare_data():
     templates_total_times = []
     templates = []
 
-    with open(os.getenv('INPUT_BUILD_RESULT_FILENAME')) as f:
+    with open(f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_RESULT_FILENAME')}") as f:
         lines = f.read().splitlines()
 
         for idx, line in enumerate(lines):
