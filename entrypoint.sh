@@ -61,6 +61,7 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 
     # Generate graph
     python3 /generate_graph.py -t $build_time -r $INPUT_RUN_ID -o $tmp_dir/"${INPUT_FILENAME}"
+    python3 /generate_wiki_page.py
 
     git add .
     git commit -m "$INPUT_COMMIT_MESSAGE"

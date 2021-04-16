@@ -1,0 +1,540 @@
+Analyzing build trace from 'vt-build'...
+**** Time summary:
+Compilation (795 times):
+  Parsing (frontend):         2423.7 s
+  Codegen & opts (backend):   4714.7 s
+
+**** Files that took longest to parse (compiler frontend):
+ 21240 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_construct_no_idx.extended.cc.o
+ 18766 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_send.extended.cc.o
+ 18619 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_broadcast.extended.cc.o
+ 15825 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_index_types.extended.cc.o
+ 12319 ms: build/vt/tests/CMakeFiles/rdma_extended.dir/unit/rdma/test_rdma_collection_handle.extended.cc.o
+ 12030 ms: build/vt/tests/CMakeFiles/rdma_extended.dir/unit/rdma/test_rdma_static_sub_handle.extended.cc.o
+ 12019 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_construct.cc.o
+ 11833 ms: build/vt/src/CMakeFiles/vt.dir/vt/runtime/runtime.cc.o
+ 11438 ms: build/vt/tests/CMakeFiles/termination_basic.dir/unit/termination/test_term_dep_send_chain.cc.o
+ 11296 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_reduce_collection.cc.o
+ 11119 ms: build/vt/examples/CMakeFiles/tutorial.dir/tutorial.cc.o
+ 10766 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_send.cc.o
+ 10715 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_insert.extended.cc.o
+ 10645 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_destroy.cc.o
+ 10597 ms: build/vt/tests/CMakeFiles/location_extended.dir/unit/location/test_hops.extended.cc.o
+ 10573 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_storage.cc.o
+ 10530 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_model_per_collection.extended.cc.o
+ 10306 ms: build/vt/examples/hello_world/CMakeFiles/hello_world_collection_reduce.dir/hello_world_collection_reduce.cc.o
+ 10210 ms: build/vt/examples/collection/CMakeFiles/transpose.dir/transpose.cc.o
+ 10202 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_broadcast.cc.o
+
+**** Files that took longest to codegen (compiler backend):
+149858 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_construct_no_idx.extended.cc.o
+133177 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_broadcast.extended.cc.o
+121292 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_send.extended.cc.o
+114350 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_index_types.extended.cc.o
+ 68556 ms: build/vt/tests/CMakeFiles/termination_basic.dir/unit/termination/test_term_dep_send_chain.cc.o
+ 68308 ms: build/vt/tests/CMakeFiles/rdma_extended.dir/unit/rdma/test_rdma_collection_handle.extended.cc.o
+ 66624 ms: build/vt/examples/CMakeFiles/tutorial.dir/tutorial.cc.o
+ 62768 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_construct.cc.o
+ 62142 ms: build/vt/tests/CMakeFiles/collection_basic.dir/unit/collection/test_reduce_collection.cc.o
+ 56658 ms: build/vt/tests/CMakeFiles/rdma_extended.dir/unit/rdma/test_rdma_static_sub_handle.extended.cc.o
+ 54807 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_collection_group.extended.cc.o
+ 54727 ms: build/vt/examples/collection/CMakeFiles/transpose.dir/transpose.cc.o
+ 53507 ms: build/vt/examples/hello_world/CMakeFiles/hello_world_collection_reduce.dir/hello_world_collection_reduce.cc.o
+ 53353 ms: build/vt/tests/CMakeFiles/pipe_extended.dir/unit/pipe/test_callback_bcast_collection.extended.cc.o
+ 53070 ms: build/vt/tests/CMakeFiles/pipe_extended.dir/unit/pipe/test_callback_send_collection.extended.cc.o
+ 52595 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_insert.extended.cc.o
+ 52055 ms: build/vt/examples/collection/CMakeFiles/jacobi2d_vt.dir/jacobi2d_vt.cc.o
+ 51516 ms: build/vt/examples/collection/CMakeFiles/jacobi1d_vt.dir/jacobi1d_vt.cc.o
+ 51310 ms: build/vt/tests/CMakeFiles/collection_extended.dir/unit/collection/test_checkpoint.extended.cc.o
+ 50642 ms: build/vt/examples/hello_world/CMakeFiles/hello_world_collection_collective.dir/hello_world_collection_collective.cc.o
+
+**** Templates that took longest to instantiate:
+ 90316 ms: checkpoint::instantiateObjSerializer<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer> (358 times, avg 252 ms)
+ 90242 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (358 times, avg 252 ms)
+ 86998 ms: fmt::v7::detail::vformat_to<char> (393 times, avg 221 ms)
+ 64595 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::runtime::component::detail::DiagnosticBase, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (358 times, avg 180 ms)
+ 50922 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::runtime::component::detail::DiagnosticBase, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (358 times, avg 142 ms)
+ 50015 ms: fmt::v7::detail::format_handler<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >::on_format_specs (393 times, avg 127 ms)
+ 48879 ms: vt::location::EntityLocationCoord<int>::EntityLocationCoord (488 times, avg 100 ms)
+ 41179 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::runtime::component::detail::DiagnosticBase, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (358 times, avg 115 ms)
+ 40640 ms: std::make_unique<vt::location::EntityLocationCoord<int>> (244 times, avg 166 ms)
+ 27931 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::runtime::component::detail::DiagnosticBase, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (358 times, avg 78 ms)
+ 27231 ms: fmt::v7::detail::write<char, std::back_insert_iterator<std::__cxx11::basic_string<char> >, long double, 0> (786 times, avg 34 ms)
+ 27154 ms: vt::messaging::MsgSharedPtr<vt::messaging::ActiveMsg<vt::messaging::ActiveEnvelope> >::MsgSharedPtr (311 times, avg 87 ms)
+ 27129 ms: vt::messaging::MsgSharedPtr<vt::messaging::ActiveMsg<vt::messaging::ActiveEnvelope> >::init (306 times, avg 88 ms)
+ 27025 ms: vt::messageRef<vt::messaging::ActiveMsg<vt::messaging::ActiveEnvelope> > (306 times, avg 88 ms)
+ 26855 ms: vt::location::EntityLocationCoord<unsigned long>::EntityLocationCoord (488 times, avg 55 ms)
+ 26549 ms: vt::envelopeRef<vt::messaging::ActiveEnvelope> (306 times, avg 86 ms)
+ 26335 ms: vt::debug::assert::assertOutInfo<short, const char *, const char *, const char *> (306 times, avg 86 ms)
+ 25610 ms: checkpoint::dispatch::vrt::instantiateObjSerializerImpl<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter> (358 times, avg 71 ms)
+ 24390 ms: checkpoint::dispatch::vrt::InstantiateIfPossible<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter, void>::registerIt (358 times, avg 68 ms)
+ 24289 ms: checkpoint::dispatch::vrt::serializer_registry::makeObjIdx<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter> (358 times, avg 67 ms)
+ 24099 ms: checkpoint::dispatch::vrt::serializer_registry::Registrar<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter>::Registrar (358 times, avg 67 ms)
+ 18624 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::runtime::component::detail::DiagnosticBase, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (358 times, avg 52 ms)
+ 18137 ms: checkpoint::instantiateObjSerializer<vt::vrt::collection::storage::StoreElmBase, checkpoint::Footprinter, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer> (244 times, avg 74 ms)
+ 18107 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::vrt::collection::storage::StoreElmBase, checkpoint::Footprinter, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (244 times, avg 74 ms)
+ 16879 ms: checkpoint::operator|<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase> (358 times, avg 47 ms)
+ 16841 ms: checkpoint::dispatch::Traverse::with<vt::runtime::component::detail::DiagnosticBase, checkpoint::Footprinter> (358 times, avg 47 ms)
+ 16042 ms: checkpoint::dispatch::SerializerDispatchByte<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase, checkpoint::dispatch::BasicDispatcher<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase> >::operator()<vt::runtime::component::detail::DiagnosticBase> (358 times, avg 44 ms)
+ 15775 ms: checkpoint::dispatch::SerializerDispatchNonByte<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase, checkpoint::dispatch::BasicDispatcher<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase> >::operator()<vt::runtime::component::detail::DiagnosticBase> (358 times, avg 44 ms)
+ 15516 ms: vt::location::EntityLocationCoord<int> (244 times, avg 63 ms)
+ 15409 ms: checkpoint::dispatch::SerializerDispatchNonByte<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase, checkpoint::dispatch::BasicDispatcher<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase> >::apply<vt::runtime::component::detail::DiagnosticBase> (358 times, avg 43 ms)
+ 15253 ms: checkpoint::dispatch::SerializerDispatchNonByte<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase, checkpoint::dispatch::BasicDispatcher<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase> >::applyStatic<vt::runtime::component::detail::DiagnosticBase> (358 times, avg 42 ms)
+ 15127 ms: checkpoint::dispatch::BasicDispatcher<checkpoint::Footprinter, vt::runtime::component::detail::DiagnosticBase>::serializeIntrusive (358 times, avg 42 ms)
+ 15085 ms: vt::runtime::component::detail::DiagnosticBase::serialize<checkpoint::Footprinter> (358 times, avg 42 ms)
+ 14901 ms: fmt::v7::detail::stringifier::operator()<long double> (393 times, avg 37 ms)
+ 14780 ms: fmt::v7::to_string<long double, 0> (393 times, avg 37 ms)
+ 14549 ms: std::make_unique<vt::location::EntityLocationCoord<unsigned long>> (244 times, avg 59 ms)
+ 14454 ms: testing::internal::TypeParameterizedTestSuite<TestConstruct, testing::internal::Templates1<test_construct_1>, testing::internal::Types8<vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<int>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<long>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<std::__cxx11::basic_string<char> >, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::A>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::B>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::C>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<int, int>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<long, long> > >::Register (1 times, avg 14454 ms)
+ 14454 ms: testing::internal::TypeParameterizedTest<TestConstruct, testing::internal::TemplateSel<test_construct_1>, testing::internal::Types8<vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<int>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<long>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<std::__cxx11::basic_string<char> >, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::A>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::B>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::C>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<int, int>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<long, long> > >::Register (1 times, avg 14454 ms)
+ 13928 ms: vt::util::error::PrinterNameValue<1, std::tuple<const char *, const char *>, std::tuple<short, const char *> >::make (306 times, avg 45 ms)
+ 13599 ms: checkpoint::dispatch::vrt::instantiateObjSerializerImpl<vt::runtime::component::detail::DiagnosticBase, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer> > (358 times, avg 37 ms)
+ 13270 ms: fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, long double, 0> (786 times, avg 16 ms)
+ 13193 ms: checkpoint::dispatch::vrt::instantiateObjSerializerImpl<vt::runtime::component::detail::DiagnosticBase, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer> > (358 times, avg 36 ms)
+ 12893 ms: testing::internal::TypeParameterizedTest<TestConstruct, testing::internal::TemplateSel<test_construct_1>, testing::internal::Types7<vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<long>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<std::__cxx11::basic_string<char> >, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::A>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::B>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<test_data::C>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<int, int>, vt::tests::unit::no_idx::multi_param_no_idx_::TestCol<long, long> > >::Register (1 times, avg 12893 ms)
+ 12566 ms: fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, float, 0> (786 times, avg 15 ms)
+ 12340 ms: testing::internal::TypeParameterizedTestSuite<TestBroadcast, testing::internal::Templates1<test_broadcast_1>, testing::internal::Types7<vt::tests::unit::bcast::bcast_col_::TestCol<long>, vt::tests::unit::bcast::bcast_col_::TestCol<std::__cxx11::basic_string<char> >, vt::tests::unit::bcast::bcast_col_::TestCol<test_data::A>, vt::tests::unit::bcast::bcast_col_::TestCol<test_data::B>, vt::tests::unit::bcast::bcast_col_::TestCol<test_data::C>, vt::tests::unit::bcast::bcast_col_::TestCol<int, int>, vt::tests::unit::bcast::bcast_col_::TestCol<long, long> > >::Register (1 times, avg 12340 ms)
+ 12339 ms: testing::internal::TypeParameterizedTest<TestBroadcast, testing::internal::TemplateSel<test_broadcast_1>, testing::internal::Types7<vt::tests::unit::bcast::bcast_col_::TestCol<long>, vt::tests::unit::bcast::bcast_col_::TestCol<std::__cxx11::basic_string<char> >, vt::tests::unit::bcast::bcast_col_::TestCol<test_data::A>, vt::tests::unit::bcast::bcast_col_::TestCol<test_data::B>, vt::tests::unit::bcast::bcast_col_::TestCol<test_data::C>, vt::tests::unit::bcast::bcast_col_::TestCol<int, int>, vt::tests::unit::bcast::bcast_col_::TestCol<long, long> > >::Register (1 times, avg 12339 ms)
+ 12314 ms: vt::vrt::collection::Migratable::serialize<checkpoint::Sizer> (38 times, avg 324 ms)
+ 12167 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<vt::vrt::collection::storage::StoreElmBase, checkpoint::PackerBuffer<checkpoint::buffer::ManagedBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::PackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::UserBuffer>, checkpoint::UnpackerBuffer<checkpoint::buffer::IOBuffer>, checkpoint::Sizer>::_recur_register (244 times, avg 49 ms)
+ 11973 ms: vt::location::LocationManager::insertInstance<vt::location::EntityLocationCoord<int> > (244 times, avg 49 ms)
+ 11969 ms: testing::internal::TypeParameterizedTestSuite<TestCollectionSend, testing::internal::Templates1<test_collection_send_1>, testing::internal::Types7<vt::tests::unit::send::send_col_::TestCol<long>, vt::tests::unit::send::send_col_::TestCol<std::__cxx11::basic_string<char> >, vt::tests::unit::send::send_col_::TestCol<test_data::A>, vt::tests::unit::send::send_col_::TestCol<test_data::B>, vt::tests::unit::send::send_col_::TestCol<test_data::C>, vt::tests::unit::send::send_col_::TestCol<int, int>, vt::tests::unit::send::send_col_::TestCol<long, long> > >::Register (1 times, avg 11969 ms)
+
+**** Template sets that took longest to instantiate:
+272224 ms: std::unordered_map<$> (22623 times, avg 12 ms)
+251579 ms: std::_Hashtable<$> (23713 times, avg 10 ms)
+166060 ms: std::unique_ptr<$> (16118 times, avg 10 ms)
+146206 ms: std::__uniq_ptr_impl<$> (16118 times, avg 9 ms)
+144668 ms: std::__detail::_Hashtable_alloc<$> (23713 times, avg 6 ms)
+122881 ms: std::tuple<$> (29101 times, avg 4 ms)
+121355 ms: std::pair<$> (29451 times, avg 4 ms)
+111873 ms: checkpoint::dispatch::Traverse::with<$> (4981 times, avg 22 ms)
+110759 ms: checkpoint::instantiateObjSerializer<$> (614 times, avg 180 ms)
+110654 ms: checkpoint::dispatch::vrt::InstantiateTupleHelper<$>::_recur_register (614 times, avg 180 ms)
+110135 ms: checkpoint::dispatch::vrt::instantiateObjSerializerImpl<$> (4298 times, avg 25 ms)
+110034 ms: std::__detail::_Hash_node<$> (22631 times, avg 4 ms)
+109404 ms: std::__detail::_Hash_node_value_base<$> (22630 times, avg 4 ms)
+108196 ms: __gnu_cxx::__aligned_buffer<$> (22638 times, avg 4 ms)
+106458 ms: std::make_unique<$> (3439 times, avg 30 ms)
+102954 ms: std::__and_<$> (63327 times, avg 1 ms)
+102901 ms: checkpoint::dispatch::SerializerDispatchNonByte<$>::apply<$> (4750 times, avg 21 ms)
+ 98890 ms: checkpoint::dispatch::SerializerDispatchNonByte<$>::applyStatic<$> (3267 times, avg 30 ms)
+ 97537 ms: checkpoint::dispatch::BasicDispatcher<$>::serializeIntrusive (3196 times, avg 30 ms)
+ 91773 ms: checkpoint::dispatch::vrt::InstantiateIfPossible<$>::registerIt (4298 times, avg 21 ms)
+ 90669 ms: checkpoint::dispatch::vrt::serializer_registry::makeObjIdx<$> (4298 times, avg 21 ms)
+ 88857 ms: checkpoint::dispatch::vrt::serializer_registry::Registrar<$>::Registrar (4298 times, avg 20 ms)
+ 86998 ms: fmt::v7::detail::vformat_to<$> (393 times, avg 221 ms)
+ 76011 ms: testing::internal::TypeParameterizedTestSuite<$>::Register (21 times, avg 3619 ms)
+ 75982 ms: testing::internal::TypeParameterizedTest<$>::Register (38 times, avg 1999 ms)
+ 75597 ms: testing::internal::TestFactoryImpl<$>::CreateTest (156 times, avg 484 ms)
+ 71634 ms: vt::vrt::collection::CollectionManager::construct<$> (46 times, avg 1557 ms)
+ 71200 ms: vt::messaging::ActiveMessenger::sendMsg<$> (1423 times, avg 50 ms)
+ 70983 ms: vt::vrt::collection::CollectionManager::constructMap<$> (46 times, avg 1543 ms)
+ 69006 ms: vt::vrt::collection::CollectionBase<$>::migrate (66 times, avg 1045 ms)
+ 68862 ms: vt::vrt::collection::CollectionElmAttorney<$>::migrate (66 times, avg 1043 ms)
+ 68851 ms: vt::vrt::collection::CollectionManager::migrate<$> (66 times, avg 1043 ms)
+ 68631 ms: vt::vrt::collection::CollectionManager::migrateOut<$> (66 times, avg 1039 ms)
+ 68103 ms: vt::messaging::ActiveMessenger::sendMsgImpl<$> (1016 times, avg 67 ms)
+ 64767 ms: checkpoint::SerializableTraits<$> (27482 times, avg 2 ms)
+ 63038 ms: fmt::v7::format<$> (10159 times, avg 6 ms)
+ 61470 ms: fmt::v7::detail::write<$> (9365 times, avg 6 ms)
+ 59679 ms: vt::vrt::collection::CollectionManager::distConstruct<$> (46 times, avg 1297 ms)
+ 59328 ms: vt::messaging::ActiveMessenger::sendMsgSerializableImpl<$> (117 times, avg 507 ms)
+ 54533 ms: std::__detail::_Hashtable_alloc<$>::_M_deallocate_node (10731 times, avg 5 ms)
+ 53170 ms: vt::runtime::component::detail::DiagnosticBase::serialize<$> (2506 times, avg 21 ms)
+ 53036 ms: vt::config::ApplyOp<$>::apply<$> (8509 times, avg 6 ms)
+ 52109 ms: std::_Tuple_impl<$> (23151 times, avg 2 ms)
+ 50941 ms: std::make_tuple<$> (6425 times, avg 7 ms)
+ 50015 ms: fmt::v7::detail::format_handler<$>::on_format_specs (393 times, avg 127 ms)
+ 47879 ms: fmt::v7::to_string<$> (5900 times, avg 8 ms)
+ 47795 ms: vt::serialization::SerializedMessenger::broadcastSerialMsg<$> (118 times, avg 405 ms)
+ 47485 ms: vt::config::CheckEnabled<$>::apply<$> (4823 times, avg 9 ms)
+ 47330 ms: std::forward_as_tuple<$> (5330 times, avg 8 ms)
+ 46780 ms: checkpoint::serialize<$> (3073 times, avg 15 ms)
+
+**** Functions that took longest to compile:
+ 19841 ms: void fmt::v7::detail::fallback_format<double>(double, int, bool, fmt::v7::detail::buffer<char>&, int&) (../../tests/unit/main.cc)
+  8716 ms: void fmt::v7::detail::fallback_format<long double>(long double, int, bool, fmt::v7::detail::buffer<char>&, int&) (../../tests/unit/main.cc)
+  7280 ms: std::enable_if<(std::tuple_size<std::tuple<short, char const*> >::value) != (0), void>::type vt::debug::assert::assertOutInfo<short, char const*, char const*, char const*>(bool, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, std::tuple<char const*, char const*>&&, std::tuple<short, char const*>&&) (../../tests/unit/main.cc)
+  6558 ms: fmt::v7::detail::dragonbox::decimal_fp<double> fmt::v7::detail::dragonbox::to_decimal<double>(double) (../../tests/unit/main.cc)
+  6540 ms: fmt::v7::detail::vformat[abi:cxx11](fmt::v7::basic_string_view<char>, fmt::v7::format_args) (../../tests/unit/main.cc)
+  6399 ms: char const* fmt::v7::detail::parse_replacement_field<char, fmt::v7::detail::format_handler<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >&>(char const*, char const*, fmt::v7::detail::format_handler<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >&) (../../tests/unit/main.cc)
+  5998 ms: int fmt::v7::detail::format_float<double>(double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<char>&) (../../tests/unit/main.cc)
+  5658 ms: fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned __int128>::on_num() (../../tests/unit/main.cc)
+  4967 ms: fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned int>::on_num() (../../tests/unit/main.cc)
+  4902 ms: void fmt::v7::detail::vformat_to<char>(fmt::v7::detail::buffer<char>&, fmt::v7::basic_string_view<char>, fmt::v7::basic_format_args<fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<fmt::v7::type_identity<char>::type>, fmt::v7::type_identity<char>::type> >, fmt::v7::detail::locale_ref) (../../tests/unit/main.cc)
+  4676 ms: fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned long>::on_num() (../../tests/unit/main.cc)
+  4413 ms: std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > fmt::v7::detail::write_float<std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, fmt::v7::detail::dragonbox::decimal_fp<double>, char>(std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, fmt::v7::detail::dragonbox::decimal_fp<double> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char) (../../tests/unit/main.cc)
+  4244 ms: std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > fmt::v7::detail::write_float<std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, fmt::v7::detail::dragonbox::decimal_fp<float>, char>(std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, fmt::v7::detail::dragonbox::decimal_fp<float> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char) (../../tests/unit/main.cc)
+  4021 ms: fmt::v7::detail::bigint::divmod_assign(fmt::v7::detail::bigint const&) (../../tests/unit/main.cc)
+  3813 ms: fmt::v7::detail::format_handler<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >::on_format_specs(int, char const*, char const*) (../../tests/unit/main.cc)
+  3626 ms: std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > fmt::v7::detail::write_float<std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, fmt::v7::detail::big_decimal_fp, char>(std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, fmt::v7::detail::big_decimal_fp const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char) (../../tests/unit/main.cc)
+  3605 ms: fmt::v7::detail::bigint::square() (../../tests/unit/main.cc)
+  3219 ms: int fmt::v7::detail::snprintf_float<long double>(long double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<char>&) (../../tests/unit/main.cc)
+  3185 ms: int fmt::v7::detail::snprintf_float<double>(double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<char>&) (../../tests/unit/main.cc)
+  2809 ms: fmt::v7::detail::dragonbox::decimal_fp<float> fmt::v7::detail::dragonbox::to_decimal<float>(float) (../../tests/unit/main.cc)
+  2639 ms: std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > fmt::v7::detail::write<char, std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, long double, 0>(std::back_insert_iterator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, long double, fmt::v7::basic_format_specs<char>, fmt::v7::detail::locale_ref) (../../tests/unit/main.cc)
+  2632 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char) (../../tests/unit/main.cc)
+  2631 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<float>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<float> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char) (../../tests/unit/main.cc)
+  2619 ms: vt::runtime::Runtime::printStartupBanner() (../../src/vt/runtime/runtime_banner.cc)
+  2525 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::big_decimal_fp, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::big_decimal_fp const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char) (../../tests/unit/main.cc)
+  2430 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, float, 0>(fmt::v7::detail::buffer_appender<char>, float, fmt::v7::basic_format_specs<char>, fmt::v7::detail::locale_ref) (../../tests/unit/main.cc)
+  2427 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, double, 0>(fmt::v7::detail::buffer_appender<char>, double, fmt::v7::basic_format_specs<char>, fmt::v7::detail::locale_ref) (../../tests/unit/main.cc)
+  2355 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, long double, 0>(fmt::v7::detail::buffer_appender<char>, long double, fmt::v7::basic_format_specs<char>, fmt::v7::detail::locale_ref) (../../tests/unit/main.cc)
+  2124 ms: char const* fmt::v7::detail::parse_align<char, fmt::v7::detail::specs_checker<fmt::v7::detail::specs_handler<fmt::v7::basic_format_parse_context<char, fmt::v7::detail::error_handler>, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> > >&>(char const*, char const*, fmt::v7::detail::specs_checker<fmt::v7::detail::specs_handler<fmt::v7::basic_format_parse_context<char, fmt::v7::detail::error_handler>, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> > >&) (../../tests/unit/main.cc)
+  2122 ms: vt::debug::proc[abi:cxx11](short const&) (../../tests/unit/main.cc)
+  2080 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, __int128, 0>(fmt::v7::detail::buffer_appender<char>, __int128) (../../tests/unit/main.cc)
+  2077 ms: vt::util::error::PrinterNameValue<1ul, std::tuple<char const*, char const*>, std::tuple<short, char const*> >::make[abi:cxx11](std::tuple<char const*, char const*> const&, std::tuple<short, char const*> const&) (../../tests/unit/main.cc)
+  1916 ms: int fmt::v7::detail::format_float<long double>(long double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<char>&) (../../tests/unit/main.cc)
+  1828 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write<char, fmt::v7::detail::buffer_appender<char>, unsigned __int128, 0>(fmt::v7::detail::buffer_appender<char>, unsigned __int128) (../../tests/unit/main.cc)
+  1825 ms: vt::util::error::PrinterNameValue<0ul, std::tuple<char const*, char const*>, std::tuple<short, char const*> >::make[abi:cxx11](std::tuple<char const*, char const*> const&, std::tuple<short, char const*> const&) (../../tests/unit/main.cc)
+  1824 ms: char const* fmt::v7::detail::parse_format_specs<char, fmt::v7::detail::specs_checker<fmt::v7::detail::specs_handler<fmt::v7::basic_format_parse_context<char, fmt::v7::detail::error_handler>, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> > >&>(char const*, char const*, fmt::v7::detail::specs_checker<fmt::v7::detail::specs_handler<fmt::v7::basic_format_parse_context<char, fmt::v7::detail::error_handler>, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> > >&) (../../tests/unit/main.cc)
+  1794 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write<char, char, fmt::v7::detail::buffer_appender<char> >(fmt::v7::detail::buffer_appender<char>, fmt::v7::basic_string_view<char>, fmt::v7::basic_format_specs<char> const&) (../../tests/unit/main.cc)
+  1758 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char)::'lambda'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+  1747 ms: char const* fmt::v7::detail::parse_arg_id<char, fmt::v7::detail::id_adapter<fmt::v7::detail::format_handler<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >&, char>&>(char const*, char const*, fmt::v7::detail::id_adapter<fmt::v7::detail::format_handler<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >&, char>&) (../../tests/unit/main.cc)
+  1734 ms: void std::vector<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase>, std::allocator<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase> > >::_M_realloc_insert<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase> >(__gnu_cxx::__normal_iterator<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase>*, std::vector<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase>, std::allocator<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase> > > >, checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::vrt::collection::storage::StoreElmBase>&&) (../../tests/unit/main.cc)
+  1715 ms: std::enable_if<(std::tuple_size<std::tuple<> >::value) == (0), void>::type vt::debug::assert::assertOut<>(bool, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int, std::tuple<>&&) (../../tests/unit/main.cc)
+  1685 ms: vt::debug::vtPre[abi:cxx11]() (../../tests/unit/main.cc)
+  1664 ms: decltype(fp(0)) fmt::v7::visit_format_arg<fmt::v7::detail::stringifier, fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> >(fmt::v7::detail::stringifier&&, fmt::v7::basic_format_arg<fmt::v7::basic_format_context<fmt::v7::detail::buffer_appender<char>, char> > const&) (../../tests/unit/main.cc)
+  1646 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char)::'lambda1'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+  1629 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<float>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<float> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char)::'lambda'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+  1629 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<float>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<float> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char)::'lambda1'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+  1584 ms: void std::vector<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase>, std::allocator<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase> > >::_M_realloc_insert<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase> >(__gnu_cxx::__normal_iterator<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase>*, std::vector<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase>, std::allocator<checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase> > > >, checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<vt::runtime::component::detail::DiagnosticBase>&&) (../../tests/unit/main.cc)
+  1576 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_int<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned __int128>::on_hex()::'lambda'(fmt::v7::detail::buffer_appender<char>)>(fmt::v7::detail::buffer_appender<char>, int, fmt::v7::basic_string_view<char>, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned __int128>::on_hex()::'lambda'(fmt::v7::detail::buffer_appender<char>))::'lambda'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+  1552 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_float<fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double>, char>(fmt::v7::detail::buffer_appender<char>, fmt::v7::detail::dragonbox::decimal_fp<double> const&, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::float_specs, char)::'lambda0'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+  1550 ms: fmt::v7::detail::buffer_appender<char> fmt::v7::detail::write_int<fmt::v7::detail::buffer_appender<char>, char, fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned __int128>::on_bin()::'lambda'(fmt::v7::detail::buffer_appender<char>)>(fmt::v7::detail::buffer_appender<char>, int, fmt::v7::basic_string_view<char>, fmt::v7::basic_format_specs<char> const&, fmt::v7::detail::int_writer<fmt::v7::detail::buffer_appender<char>, char, unsigned __int128>::on_bin()::'lambda'(fmt::v7::detail::buffer_appender<char>))::'lambda'(fmt::v7::detail::buffer_appender<char>)::operator()(fmt::v7::detail::buffer_appender<char>) const (../../tests/unit/main.cc)
+
+**** Function sets that took longest to compile / optimize:
+ 72140 ms: void fmt::v7::detail::fallback_format<$>(double, int, bool, fmt::v7::detail::buffer<$>&, int&) (530 times, avg 136 ms)
+ 70198 ms: std::enable_if<$>::type vt::debug::assert::assertOutInfo<$>(bool, std::__cxx11::basic_string<$>, std::__cxx11::basic_string<$> const&, std::__cxx11::basic_string<$> const&, int, std::__cxx11::basic_string<$> const&, int, std::tuple<$>&&, std::tuple<$>&&) (766 times, avg 91 ms)
+ 55189 ms: fmt::v7::detail::int_writer<$>::on_num() (1042 times, avg 52 ms)
+ 36574 ms: checkpoint::dispatch::vrt::serializer_registry::Registrar<$>::Registrar() (3113 times, avg 11 ms)
+ 34136 ms: void fmt::v7::detail::fallback_format<$>(long double, int, bool, fmt::v7::detail::buffer<$>&, int&) (530 times, avg 64 ms)
+ 30656 ms: std::back_insert_iterator<$> fmt::v7::detail::write_float<$>(std::back_insert_iterator<$>, fmt::v7::detail::dragonbox::decimal_fp<$> const&, fmt::v7::basic_format_specs<$> const&, fmt::v7::detail::float_specs, char) (495 times, avg 61 ms)
+ 27538 ms: std::_Hashtable<$>::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<$>*, unsigned long) (1693 times, avg 16 ms)
+ 27378 ms: vt::util::error::PrinterNameValue<$>::make[abi:cxx11](std::tuple<$> const&, std::tuple<$> const&) (2321 times, avg 11 ms)
+ 24071 ms: fmt::v7::detail::vformat[abi:cxx11](fmt::v7::basic_string_view<$>, fmt::v7::format_args) (224 times, avg 107 ms)
+ 22958 ms: char const* fmt::v7::detail::parse_replacement_field<$>(char const*, char const*, fmt::v7::detail::format_handler<$>&) (222 times, avg 103 ms)
+ 22660 ms: fmt::v7::detail::dragonbox::decimal_fp<$> fmt::v7::detail::dragonbox::to_decimal<$>(double) (245 times, avg 92 ms)
+ 21354 ms: int fmt::v7::detail::format_float<$>(double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<$>&) (256 times, avg 83 ms)
+ 20156 ms: vt::auto_registry::RegistrarGen<$>::RegistrarGen() (2227 times, avg 9 ms)
+ 19335 ms: fmt::v7::detail::buffer_appender<$> fmt::v7::detail::write_float<$>(fmt::v7::detail::buffer_appender<$>, fmt::v7::detail::dragonbox::decimal_fp<$> const&, fmt::v7::basic_format_specs<$> const&, fmt::v7::detail::float_specs, char) (573 times, avg 33 ms)
+ 18295 ms: void fmt::v7::detail::vformat_to<$>(fmt::v7::detail::buffer<$>&, fmt::v7::basic_string_view<$>, fmt::v7::basic_format_args<$>, fmt::v7::detail::locale_ref) (226 times, avg 80 ms)
+ 17180 ms: std::_Function_base::_Base_manager<$>::_M_manager(std::_Any_data&, std::_Any_data const&, std::_Manager_operation) (7283 times, avg 2 ms)
+ 16264 ms: vt::messaging::MsgSharedPtr<$>::get() const (1370 times, avg 11 ms)
+ 14353 ms: fmt::v7::detail::format_handler<$>::on_format_specs(int, char const*, char const*) (229 times, avg 62 ms)
+ 13846 ms: void vt::collective::reduce::Reduce::startReduce<$>(vt::util::adt::AlignedCharUnion<$>, bool) (296 times, avg 46 ms)
+ 13305 ms: std::back_insert_iterator<$> fmt::v7::detail::write_float<$>(std::back_insert_iterator<$>, fmt::v7::detail::big_decimal_fp const&, fmt::v7::basic_format_specs<$> const&, fmt::v7::detail::float_specs, char) (251 times, avg 53 ms)
+ 12116 ms: void std::vector<$>::_M_realloc_insert<$>(__gnu_cxx::__normal_iterator<$>, checkpoint::dispatch::vrt::serializer_registry::SerializerEntry<$>&&) (448 times, avg 27 ms)
+ 11636 ms: int fmt::v7::detail::snprintf_float<$>(long double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<$>&) (423 times, avg 27 ms)
+ 11617 ms: int fmt::v7::detail::snprintf_float<$>(double, int, fmt::v7::detail::float_specs, fmt::v7::detail::buffer<$>&) (433 times, avg 26 ms)
+ 11234 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)256, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [72], unsigned long const&, short const&, short&>(bool, char const (&) [72], unsigned long const&, short const&, short&) (62 times, avg 181 ms)
+ 11220 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)256, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [89], unsigned long const&, short const&, long&, long&>(bool, char const (&) [89], unsigned long const&, short const&, long&, long&) (62 times, avg 180 ms)
+ 10965 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)256, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [63], unsigned long const&, short const&>(bool, char const (&) [63], unsigned long const&, short const&) (62 times, avg 176 ms)
+ 10921 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)256, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [50], unsigned long const&, short const&>(bool, char const (&) [50], unsigned long const&, short const&) (63 times, avg 173 ms)
+ 10809 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)256, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [62], unsigned long const&, short const&>(bool, char const (&) [62], unsigned long const&, short const&) (62 times, avg 174 ms)
+ 10795 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)256, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [57], unsigned long const&, short const&>(bool, char const (&) [57], unsigned long const&, short const&) (64 times, avg 168 ms)
+ 10425 ms: fmt::v7::detail::dragonbox::decimal_fp<$> fmt::v7::detail::dragonbox::to_decimal<$>(float) (233 times, avg 44 ms)
+ 10246 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1024, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [106], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned long, short, int&, int&, unsigned long&, bool&>(bool, char const (&) [106], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, unsigned long&&, short&&, int&, int&, unsigned long&, bool&) (55 times, avg 186 ms)
+ 10131 ms: fmt::v7::detail::int_writer<$>::on_oct() (672 times, avg 15 ms)
+ 10080 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1024, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [67], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, short const&, short const&>(bool, char const (&) [67], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, short const&, short const&) (55 times, avg 183 ms)
+ 10073 ms: std::vector<$>::~vector() (2386 times, avg 4 ms)
+ 10035 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [109], unsigned long, void*, long const&, long&, short, short, void*, unsigned long>(bool, char const (&) [109], unsigned long&&, void*&&, long const&, long&, short&&, short&&, void*&&, unsigned long&&) (56 times, avg 179 ms)
+ 10022 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [63], unsigned long&, long&, bool, unsigned long>(bool, char const (&) [63], unsigned long&, long&, bool&&, unsigned long&&) (55 times, avg 182 ms)
+  9907 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1024, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [56], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, int&, void*, short>(bool, char const (&) [56], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, int&, void*&&, short&&) (56 times, avg 176 ms)
+  9895 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [87], long&, unsigned long&, unsigned long const&, unsigned long>(bool, char const (&) [87], long&, unsigned long&, unsigned long const&, unsigned long&&) (54 times, avg 183 ms)
+  9819 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1024, (vt::config::CtxEnum)1, (vt::config::ModeEnum)1>::operator()<char const (&) [37], bool, void*>(bool, char const (&) [37], bool&&, void*&&) (54 times, avg 181 ms)
+  9810 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [74], long const&, int const&, unsigned long>(bool, char const (&) [74], long const&, int const&, unsigned long&&) (56 times, avg 175 ms)
+  9778 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1024, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [65], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, short const&, short const&>(bool, char const (&) [65], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, short const&, short const&) (55 times, avg 177 ms)
+  9775 ms: fmt::v7::detail::int_writer<$>::on_hex() (671 times, avg 14 ms)
+  9670 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [61], unsigned long, long const&, unsigned long const&>(bool, char const (&) [61], unsigned long&&, long const&, unsigned long const&) (55 times, avg 175 ms)
+  9662 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1024, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [54], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, short const&>(bool, char const (&) [54], std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, short const&) (55 times, avg 175 ms)
+  9623 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [104], long&, unsigned long&, unsigned long&, unsigned long const&, unsigned long>(bool, char const (&) [104], long&, unsigned long&, unsigned long&, unsigned long const&, unsigned long&&) (54 times, avg 178 ms)
+  9593 ms: void vt::config::DebugPrintOp<(vt::config::CatEnum)1048576, (vt::config::CtxEnum)1, (vt::config::ModeEnum)2>::operator()<char const (&) [85], void*, long const&, int const&, unsigned long const&>(bool, char const (&) [85], void*&&, long const&, int const&, unsigned long const&) (55 times, avg 174 ms)
+  9577 ms: fmt::v7::detail::int_writer<$>::on_bin() (669 times, avg 14 ms)
+  9569 ms: vt::messaging::PendingSend vt::messaging::ActiveMessenger::sendMsgCopyableImpl<$>(short, long, vt::messaging::MsgSharedPtr<$>&, unsigned long, int) (879 times, avg 10 ms)
+  9469 ms: vt::runnable::RunnableMaker<$> vt::runnable::makeRunnable<$>(vt::messaging::MsgSharedPtr<$> const&, bool, long, short, vt::auto_registry::RegistryTypeEnum) (528 times, avg 17 ms)
+  9372 ms: std::back_insert_iterator<$> fmt::v7::detail::write<$>(std::back_insert_iterator<$>, long double, fmt::v7::basic_format_specs<$>, fmt::v7::detail::locale_ref) (240 times, avg 39 ms)
+
+*** Expensive headers:
+814902 ms: ../../src/vt/transport.h (included 229 times, avg 3558 ms), included via:
+  rdma_simple_put.cc.o  (4677 ms)
+  hello_world.cc.o  (4460 ms)
+  ring.cc.o  (4450 ms)
+  hello_world_collection_staged_insert.cc.o  (4426 ms)
+  test_model_raw_data.nompi.cc.o  (4421 ms)
+  test_model_linear_model.nompi.cc.o  (4399 ms)
+  rdma_simple_put_direct.cc.o  (4309 ms)
+  hello_world_collection_collective.cc.o  (4304 ms)
+  test_model_persistence_median_last_n.nompi.cc.o  (4286 ms)
+  param.cc.o  (4221 ms)
+  rdma_simple_get_direct.cc.o  (4201 ms)
+  ...
+
+553945 ms: ../../tests/unit/test_harness.h (included 200 times, avg 2769 ms), included via:
+  test_storage.cc.o test_parallel_harness.h  (4540 ms)
+  test_invoke.cc.o test_parallel_harness.h  (4146 ms)
+  main.cc.o  (4081 ms)
+  main.cc.o  (3962 ms)
+  main.cc.o  (3898 ms)
+  main.cc.o  (3874 ms)
+  test_send.cc.o test_parallel_harness.h  (3869 ms)
+  test_termination_action_global.cc.o test_termination_action_common.h test_parallel_harness.h  (3849 ms)
+  test_insert.extended.cc.o test_parallel_harness.h  (3843 ms)
+  test_hops.extended.cc.o test_parallel_harness.h  (3814 ms)
+  main.cc.o  (3814 ms)
+  ...
+
+268260 ms: ../../src/vt/vrt/collection/collection_headers.h (included 230 times, avg 1166 ms), included via:
+  rdma_simple_put.cc.o transport.h  (1552 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (1503 ms)
+  test_priority_queue.extended.cc.o transport.h  (1472 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (1454 ms)
+  test_construct.cc.o test_collection_common.h transport.h  (1450 ms)
+  test_model_comm_overhead.nompi.cc.o transport.h  (1442 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (1431 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (1429 ms)
+  callback.cc.o transport.h  (1401 ms)
+  test_model_raw_data.nompi.cc.o transport.h  (1400 ms)
+  hello_world_collection_staged_insert.cc.o transport.h  (1397 ms)
+  ...
+
+256528 ms: ../../src/vt/vrt/collection/manager.h (included 285 times, avg 900 ms), included via:
+  lb_stats.cc.o  (2949 ms)
+  manager.cc.o  (2204 ms)
+  rdma_simple_put.cc.o transport.h collection_headers.h  (1390 ms)
+  test_model_comm_overhead.nompi.cc.o transport.h collection_headers.h  (1369 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h  (1366 ms)
+  test_construct.cc.o test_collection_common.h transport.h collection_headers.h  (1336 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h  (1328 ms)
+  test_model_raw_data.nompi.cc.o transport.h collection_headers.h  (1326 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h  (1325 ms)
+  scheduler.cc.o  (1325 ms)
+  hello_world_collection_staged_insert.cc.o transport.h collection_headers.h  (1322 ms)
+  ...
+
+223381 ms: ../../tests/unit/test_parallel_harness.h (included 182 times, avg 1227 ms), included via:
+  test_storage.cc.o  (4900 ms)
+  test_invoke.cc.o  (4447 ms)
+  test_invoke.cc.o  (4105 ms)
+  test_termination_action_common.cc.o  (3999 ms)
+  test_objgroup.cc.o test_objgroup_common.h  (3985 ms)
+  test_send.cc.o  (3917 ms)
+  test_insert.extended.cc.o  (3874 ms)
+  test_termination_action_global.cc.o test_termination_action_common.h  (3866 ms)
+  test_hops.extended.cc.o  (3840 ms)
+  test_send.extended.cc.o  (3771 ms)
+  test_active_send.cc.o  (3732 ms)
+  ...
+
+207052 ms: ../../src/vt/config.h (included 392 times, avg 528 ms), included via:
+  cb_raw_base.cc.o  (1058 ms)
+  basic.cc.o  (1041 ms)
+  test_model_persistence_median_last_n.nompi.cc.o transport.h  (1036 ms)
+  transpose.cc.o transport.h  (1028 ms)
+  trace_user.cc.o  (992 ms)
+  trace.cc.o  (982 ms)
+  randomlb.cc.o randomlb.h baselb.h  (981 ms)
+  group_range.cc.o  (979 ms)
+  epoch_label.cc.o  (969 ms)
+  stats_restart_reader.cc.o  (962 ms)
+  ring.cc.o transport.h  (960 ms)
+  ...
+
+179699 ms: ../../src/vt/pool/pool.h (included 339 times, avg 530 ms), included via:
+  runtime_banner.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h  (817 ms)
+  collective_alg.cc.o collective_alg.h activefn.h message.h message.h  (807 ms)
+  test_safe_union.nompi.cc.o transport.h  (804 ms)
+  test_construct_idx_fst.extended.cc.o test_collection_common.h transport.h  (797 ms)
+  test_send.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h  (788 ms)
+  test_storage.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h  (787 ms)
+  collection_proxy_untyped.cc.o collection_proxy_untyped.h proxy_col_traits.h reducable.h activefn.h message.h message.h  (786 ms)
+  hello_world_collection_staged_insert.cc.o transport.h  (779 ms)
+  manager.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h  (771 ms)
+  randomlb.cc.o randomlb.h baselb.h baselb_msgs.h message.h message.h  (758 ms)
+  test_model_linear_model.nompi.cc.o transport.h  (752 ms)
+  ...
+
+178867 ms: ../../src/vt/collective/collective_alg.h (included 274 times, avg 652 ms), included via:
+  collective_alg.cc.o  (2278 ms)
+  trace.cc.o  (2248 ms)
+  collective_scope.cc.o  (1212 ms)
+  test_invoke.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h  (991 ms)
+  trace_lite.cc.o  (976 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (967 ms)
+  hello_world_collection_staged_insert.cc.o transport.h  (946 ms)
+  test_rdma_handle.extended.cc.o transport.h  (936 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (931 ms)
+  test_mapping.nompi.cc.o test_harness.h data_message.h transport.h  (924 ms)
+  test_scheduler_priorities.extended.cc.o transport.h  (913 ms)
+  ...
+
+168732 ms: ../../src/vt/messaging/active.h (included 315 times, avg 535 ms), included via:
+  rdma_collection.cc.o  (2092 ms)
+  async_op.cc.o  (1746 ms)
+  trace_user_event.cc.o  (1386 ms)
+  active.cc.o  (1228 ms)
+  thread_action.cc.o  (1117 ms)
+  epoch_tags.cc.o  (1046 ms)
+  group_info_rooted.cc.o  (816 ms)
+  collection_proxy_untyped.cc.o collection_proxy_untyped.h proxy_col_traits.h reducable.h pipe_callback_only.h cb_raw_base.h cb_raw.h callback_send_tl.h callback_send_tl.impl.h  (773 ms)
+  suspended_units.cc.o scheduler.h scheduler.impl.h  (768 ms)
+  test_invoke.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h callback_send_tl.h callback_send_tl.impl.h  (755 ms)
+  pipe_manager.cc.o pipe_manager.h pipe_manager_tl.h cb_raw_base.h cb_raw.h callback_send_tl.h callback_send_tl.impl.h  (745 ms)
+  ...
+
+151244 ms: ../../src/vt/runtime/component/component_pack.h (included 356 times, avg 424 ms), included via:
+  phase_manager.cc.o phase_manager.h  (1293 ms)
+  component_pack.cc.o  (1100 ms)
+  collective_alg.cc.o collective_alg.h activefn.h message.h message.h pool.h  (679 ms)
+  manager.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h pool.h  (629 ms)
+  runtime_banner.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h pool.h  (609 ms)
+  test_storage.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h pool.h  (606 ms)
+  event_record.cc.o event.h  (600 ms)
+  transpose.cc.o transport.h pool.h  (589 ms)
+  main.cc.o test_harness.h data_message.h transport.h pool.h  (584 ms)
+  seed.cc.o mapping.h mapping_function.h index.h dense_array.h dense_array.impl.h context.h  (582 ms)
+  spec.cc.o spec.h proxy_objgroup.h proxy_objgroup_elm.h active_func.h message.h message.h pool.h  (581 ms)
+  ...
+
+150984 ms: ../../src/vt/pipe/callback/cb_union/cb_raw_base.h (included 282 times, avg 535 ms), included via:
+  cb_raw_base.cc.o  (1427 ms)
+  collection_proxy_untyped.cc.o collection_proxy_untyped.h proxy_col_traits.h reducable.h pipe_callback_only.h  (801 ms)
+  test_invoke.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h  (791 ms)
+  pipe_manager.cc.o pipe_manager.h pipe_manager_tl.h  (781 ms)
+  trace_lite.cc.o collective_alg.h default_msg.h default_op.h pipe_callback_only.h  (771 ms)
+  main.cc.o test_harness.h data_message.h transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h  (770 ms)
+  test_scheduler_priorities.extended.cc.o transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h  (756 ms)
+  test_rdma_handle.extended.cc.o transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h  (743 ms)
+  spec.cc.o spec.h proxy_objgroup.h pipe_callback_only.h  (739 ms)
+  statsmaplb.cc.o baselb.h baselb_msgs.h reduce.h default_msg.h default_op.h pipe_callback_only.h  (733 ms)
+  test_mapping.nompi.cc.o test_harness.h data_message.h transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h  (733 ms)
+  ...
+
+148805 ms: ../../src/vt/collective/reduce/operators/default_msg.h (included 274 times, avg 543 ms), included via:
+  test_invoke.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h collective_alg.h  (799 ms)
+  trace_lite.cc.o collective_alg.h  (781 ms)
+  main.cc.o test_harness.h data_message.h transport.h collective_alg.h  (779 ms)
+  test_rdma_handle.extended.cc.o transport.h collective_alg.h  (769 ms)
+  test_scheduler_priorities.extended.cc.o transport.h collective_alg.h  (765 ms)
+  test_mapping.nompi.cc.o test_harness.h data_message.h transport.h collective_alg.h  (751 ms)
+  zoltanlb.cc.o zoltanlb.h baselb.h baselb_msgs.h reduce.h  (743 ms)
+  statsmaplb.cc.o baselb.h baselb_msgs.h reduce.h  (742 ms)
+  hello_world_collection_staged_insert.cc.o transport.h collective_alg.h  (738 ms)
+  test_histogram_approx.nompi.cc.o test_harness.h data_message.h transport.h collective_alg.h  (737 ms)
+  test_index_types.extended.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h collective_alg.h  (734 ms)
+  ...
+
+146395 ms: ../../lib/fmt/fmt/format.h (included 786 times, avg 186 ms), included via:
+  stack_out.cc.o  (668 ms)
+  transpose.cc.o transport.h config.h debug_masterconfig.h debug_print.h  (657 ms)
+  basic.cc.o config.h debug_masterconfig.h debug_print.h  (645 ms)
+  ring.cc.o transport.h config.h debug_masterconfig.h debug_print.h  (641 ms)
+  cb_raw_base.cc.o config.h debug_masterconfig.h debug_print.h  (639 ms)
+  set_context.cc.o set_context.h observer.h config.h debug_masterconfig.h debug_print.h  (627 ms)
+  pool_header.cc.o config.h debug_masterconfig.h debug_print.h  (626 ms)
+  hello_world.cc.o transport.h config.h debug_masterconfig.h debug_print.h  (621 ms)
+  scheduler.cc.o config.h debug_masterconfig.h debug_print.h  (619 ms)
+  manager.cc.o config.h debug_masterconfig.h debug_print.h  (618 ms)
+  runtime.cc.o config.h debug_masterconfig.h debug_print.h  (614 ms)
+  ...
+
+145401 ms: ../../src/vt/pipe/callback/handler_send/callback_send_tl.h (included 280 times, avg 519 ms), included via:
+  cb_raw_base.cc.o cb_raw_base.h cb_raw.h  (1412 ms)
+  callback_send_tl.cc.o  (1112 ms)
+  collection_proxy_untyped.cc.o collection_proxy_untyped.h proxy_col_traits.h reducable.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (777 ms)
+  test_invoke.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (767 ms)
+  pipe_manager.cc.o pipe_manager.h pipe_manager_tl.h cb_raw_base.h cb_raw.h  (749 ms)
+  trace_lite.cc.o collective_alg.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (738 ms)
+  main.cc.o test_harness.h data_message.h transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (732 ms)
+  test_scheduler_priorities.extended.cc.o transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (730 ms)
+  spec.cc.o spec.h proxy_objgroup.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (718 ms)
+  test_rdma_handle.extended.cc.o transport.h collective_alg.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (711 ms)
+  zoltanlb.cc.o zoltanlb.h baselb.h baselb_msgs.h reduce.h default_msg.h default_op.h pipe_callback_only.h cb_raw_base.h cb_raw.h  (709 ms)
+  ...
+
+133133 ms: ../../tests/extern/googletest/googletest/include/gtest/gtest.h (included 206 times, avg 646 ms), included via:
+  test_index_types.extended.cc.o  (1031 ms)
+  test_demangler_utils.nompi.cc.o  (1031 ms)
+  test_active_send.cc.o  (1019 ms)
+  test_rdma_handle.extended.cc.o  (1016 ms)
+  test_construct.cc.o  (1006 ms)
+  test_destroy.cc.o  (1005 ms)
+  test_construct_idx_fst.extended.cc.o  (998 ms)
+  test_callback_bcast.cc.o  (998 ms)
+  test_component_construction.cc.o  (995 ms)
+  test_hops.extended.cc.o  (994 ms)
+  test_initialization.nompi.cc.o  (981 ms)
+  ...
+
+109178 ms: ../../src/vt/runtime/component/diagnostic.h (included 358 times, avg 304 ms), included via:
+  diagnostic.cc.o  (1293 ms)
+  diagnostic_value.cc.o  (1259 ms)
+  manager.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h pool.h component_pack.h component.h base.h  (488 ms)
+  collective_alg.cc.o collective_alg.h activefn.h message.h message.h pool.h component_pack.h component.h base.h  (474 ms)
+  runtime_banner.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h pool.h component_pack.h component.h base.h  (452 ms)
+  phase_manager.cc.o phase_manager.h component_pack.h component.h base.h  (444 ms)
+  ring.cc.o transport.h pool.h component_pack.h component.h base.h  (442 ms)
+  transpose.cc.o transport.h pool.h component_pack.h component.h base.h  (440 ms)
+  request_holder.cc.o request_holder.h term_action.h term_state.h context.h component_pack.h component.h base.h  (436 ms)
+  manager.cc.o manager.h handle.h handle.node.h base_handle.h request_holder.h term_action.h term_state.h context.h component_pack.h component.h base.h  (430 ms)
+  test_lb_reader.nompi.cc.o transport.h pool.h component_pack.h component.h base.h  (428 ms)
+  ...
+
+107844 ms: ../../src/vt/sequence/sequencer_headers.h (included 235 times, avg 458 ms), included via:
+  sequencer.cc.o  (843 ms)
+  rdma_simple_put.cc.o transport.h  (677 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (675 ms)
+  test_send.extended.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h  (634 ms)
+  test_tls.nompi.cc.o test_harness.h data_message.h transport.h  (633 ms)
+  test_active_send.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h  (625 ms)
+  test_termination_action_global.cc.o test_termination_action_common.h test_parallel_harness.h test_harness.h data_message.h transport.h  (618 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (616 ms)
+  rdma_simple_put_direct.cc.o transport.h  (614 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (613 ms)
+  main.cc.o test_harness.h data_message.h transport.h  (605 ms)
+  ...
+
+82470 ms: ../checkpoint/install/include/checkpoint/checkpoint.h (included 359 times, avg 229 ms), included via:
+  manager.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (376 ms)
+  collective_alg.cc.o collective_alg.h activefn.h message.h message.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (365 ms)
+  migratable.cc.o migratable.h storable.h store_elm.h  (362 ms)
+  ring.cc.o transport.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (357 ms)
+  request_holder.cc.o request_holder.h term_action.h term_state.h context.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (349 ms)
+  runtime_banner.cc.o runtime.h runtime_component_fwd.h sequencer_fwd.h seq_common.h activefn.h message.h message.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (345 ms)
+  manager.cc.o manager.h handle.h handle.node.h base_handle.h request_holder.h term_action.h term_state.h context.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (343 ms)
+  transpose.cc.o transport.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (343 ms)
+  reduce.cc.o reduce.h reduce_state.h reduce_msg.h message.h message.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (343 ms)
+  hello_world_collection.cc.o transport.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (342 ms)
+  test_lb_reader.nompi.cc.o transport.h pool.h component_pack.h component.h base.h diagnostic.h diagnostic_value.h diagnostic_value_base.h  (341 ms)
+  ...
+
+79268 ms: ../../src/vt/vrt/context/context_vrtmanager.h (included 236 times, avg 335 ms), included via:
+  context_vrtmanager.cc.o  (1682 ms)
+  runtime_get.cc.o  (918 ms)
+  main.cc.o test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (502 ms)
+  rdma_simple_put.cc.o transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (492 ms)
+  test_tls.nompi.cc.o test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (480 ms)
+  main.cc.o test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (468 ms)
+  main.cc.o test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (454 ms)
+  test_active_broadcast.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (453 ms)
+  test_safe_union.nompi.cc.o transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (451 ms)
+  main.cc.o test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (451 ms)
+  test_active_send.cc.o test_parallel_harness.h test_harness.h data_message.h transport.h sequencer_headers.h sequencer_virtual.h seq_matcher_virtual.h context_vrtheaders.h  (451 ms)
+  ...
+
+66568 ms: ../../src/vt/rdmahandle/manager.h (included 253 times, avg 263 ms), included via:
+  manager.cc.o  (2079 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h manager.h rdmaable.impl.h  (388 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h manager.h rdmaable.impl.h  (379 ms)
+  test_memory_footprint.cc.o lb_manager.h baselb.h headers.h manager.h proxy_objgroup.impl.h  (375 ms)
+  stats_restart_reader.cc.o manager.h proxy_objgroup.impl.h  (366 ms)
+  hello_world_collection_staged_insert.cc.o transport.h collection_headers.h manager.h rdmaable.impl.h  (364 ms)
+  spec.cc.o manager.h proxy_objgroup.impl.h  (361 ms)
+  param.cc.o transport.h collection_headers.h manager.h rdmaable.impl.h  (354 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h manager.h rdmaable.impl.h  (353 ms)
+  main.cc.o test_harness.h data_message.h transport.h collection_headers.h manager.h rdmaable.impl.h  (352 ms)
+  test_model_linear_model.nompi.cc.o transport.h collection_headers.h manager.h rdmaable.impl.h  (352 ms)
+  ...
+
+  done in 6.8s.

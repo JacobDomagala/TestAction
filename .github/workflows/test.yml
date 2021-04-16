@@ -1,27 +1,20 @@
-# name: Test
+name: Test
 
-# on: push
+on: push
 
-# jobs:
-#     test_job:
-#       runs-on: ubuntu-latest
-#       name: Test job
-#       steps:
-#       - shell: bash
-#         run: cat math-homework.txt
-#       - name: Ubuntu full build
-#         uses: JacobDomagala/TestAction@master
-#         with:
-#           github_personal_token: ${{ secrets.GPAT }}
-#           github_token: ${{ github.token }}
-#           workflow: lint.yml
-#           filename: build_times_ubuntu.png
-#           repo: pytorch/pytorch
-#           num_last_build: 50
-#           title: Last 50 builds
-#           graph_width: 19
-#           graph_height: 8
-#           branch: master
+jobs:
+    test_job:
+      runs-on: ubuntu-latest
+      name: Test job
+      steps:
+      - name: Generate wiki page
+        uses: JacobDomagala/TestAction@master
+        with:
+          github_personal_token: ${{ secrets.GPAT }}
+          github_token: ${{ github.token }}
+          title: Last builds
+          graph_width: 19
+          graph_height: 8
 
 
 

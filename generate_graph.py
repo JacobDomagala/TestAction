@@ -86,7 +86,7 @@ plt.savefig(graph_file_name)
 
 average_time = total_run_time / last_n_runs
 
-BUILD_TIME = timings[0]
+BUILD_TIME = timings[-1]
 BADGE_COLOR = "green" if BUILD_TIME <= average_time else "red"
 print(f"Last build time = {BUILD_TIME} average build = {average_time} color = {BADGE_COLOR} ")
 url = f"https://img.shields.io/badge/vt:develop%20build%20time-{format(BUILD_TIME,'.1f')}%20min-{BADGE_COLOR}.svg"
