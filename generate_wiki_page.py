@@ -13,22 +13,32 @@ BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
 def prepare_data():
     templates_total_times = []
-    templates = []
+    templates = dict()
 
     with open(f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_RESULT_FILENAME')}") as f:
         lines = f.read().splitlines()
 
         for idx, line in enumerate(lines):
             if line.startswith("**** Templates that took longest to instantiate:"):
-                for template in lines[idx+1:idx+10]:
-                    delimeter = template.index("ms")
-                    templates_total_times.append(int(template[:delimeter]))
-                    templates.append(template[delimeter+3:])
+                for index, template in enumerate(lines[idx+1:idx+10]):
+                    delimiter = template.index("ms")
+                    templates_total_times.append(int(template[:delimiter]))
+
+                    tmp_text = template[delimiter+3:]
+                    end_of_template_name = tmp_text.index("(")
+                    template_name = tmp_text[:end_of_template_name - 1]
+
+                    times_and_avg = tmp_text[end_of_template_name:]
+                    times_used = int(times_and_avg[:times_and_avg.index(" ")])
+                    avg_time = int(times_and_avg[times_and_avg.index("avg") + 3:times_and_avg.index("ms")])
+
+                    templates[index] = {template_name, times_used, avg_time}
+
                 break
 
     return templates, templates_total_times
 
-def generate_graph(templates, templates_total_times):
+def generate_graph(templates_total_times):
 
     barWidth = 0.50
     fig, ax = plt.subplots(figsize=(19, 10))
@@ -65,24 +75,16 @@ def generate_graph(templates, templates_total_times):
     plt.yticks([r for r in yTicks], yTicks)
 
     plt.legend()
-
-
-    templates = [f"{idx}: {line}\n\n\n" for idx, line in enumerate(templates)]
-    # test = "".join(item for item in templates)
-
-    # fig.text(0.05, 0.01, f"{test}", wrap=True)
-
+    plt.tight_layout()
 
     plt.savefig(EXP_TEMPLATE_DIR)
-
-    return templates
 
 
 def create_md_page(templates_text):
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
         "|-------|------|-------|----------|\n"
-    for line in templates_text:
-        templates_string += f"| Label | {line} | Times | Avg (ms) |\n"
+    for idx, name, times, avg  in templates_text:
+        templates_string += f"| {idx} | {name} | {times} | {avg} |\n"
 
     with open("Build_Stats.md", "w") as f:
         f.write(f"### build history </br>\n"
@@ -100,5 +102,5 @@ def create_md_page(templates_text):
 
 if __name__ == "__main__":
     templates, templates_total_times = prepare_data()
-    templates_text = generate_graph(templates, templates_total_times)
-    create_md_page(templates_text)
+    generate_graph(templates_total_times)
+    create_md_page(templates)
