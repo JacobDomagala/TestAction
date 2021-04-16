@@ -38,15 +38,6 @@ fi
 
 GIT_REPOSITORY_URL="https://${INPUT_GITHUB_PERSONAL_TOKEN}@github.com/$GITHUB_REPOSITORY.wiki.git"
 
-docker build -t ${INPUT_DOCKER_REPOSITORY}:latest .
-
-containerId=$(docker create ${INPUT_DOCKER_REPOSITORY}:latest)
-docker cp "$containerId":/time.txt .
-docker rm "$containerId"
-
-echo "${INPUT_DOCKER_PASSWORD}" | docker login -u ${INPUT_DOCKER_USERNAME} --password-stdin docker.io
-
-#docker push ${INPUT_DOCKER_REPOSITORY}:latest
 
 tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
 (
@@ -56,11 +47,8 @@ tmp_dir=$(mktemp -d -t ci-XXXXXXXXXX)
     git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
     git pull "$GIT_REPOSITORY_URL"
 
-    build_time=$(ls -l | grep -oP 'real\s+\K\d+m\d+\.\d+s' "$GITHUB_WORKSPACE"/time.txt)
-    echo $build_time
-
     # Generate graph
-    python3 /generate_graph.py -t $build_time -r $INPUT_RUN_ID -o $tmp_dir/"${INPUT_FILENAME}"
+    python3 /generate_graph.py -vt "real 8m40.s" -te "real 35m40.s" -r 20
     python3 /generate_wiki_page.py
 
     git add .

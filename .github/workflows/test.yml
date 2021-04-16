@@ -15,6 +15,12 @@ jobs:
           title: Last builds
           graph_width: 19
           graph_height: 8
+          build_stats_output: "build_stats"
+          # build_times_filename: "build_stats/last_builds.csv"
+          # build_result_filename: "build_stats/build_result.txt"
+          # graph_filename: "build_stats/build_graph.png"
+          # badge_filename: "build_stats/build_badge.svg"
+
 
 
 

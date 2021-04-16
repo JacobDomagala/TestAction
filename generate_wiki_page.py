@@ -5,13 +5,17 @@ import requests
 from datetime import date
 import pandas as pd
 import numpy as np
-import textwrap
+
+OUTPUT_DIR = os.getenv('INPUT_BUILD_STATS_OUTPUT')
+EXP_TEMPLATE_DIR = f"{OUTPUT_DIR}/most_expensive_templates.png"
+GRAPH_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_GRAPH_FILENAME')}"
+BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
 def prepare_data():
     templates_total_times = []
     templates = []
 
-    with open('build_result.txt') as f:
+    with open(os.getenv('INPUT_BUILD_RESULT_FILENAME')) as f:
         lines = f.read().splitlines()
 
         for idx, line in enumerate(lines):
@@ -69,18 +73,21 @@ def generate_graph(templates, templates_total_times):
     fig.text(0.05, 0.01, f"{test}", wrap=True)
 
 
-    plt.show()
+    plt.savefig(EXP_TEMPLATE_DIR)
 
 
 def create_md_page():
     with open("test.md", "w") as f:
         f.write(f"### build history </br>\n"
-        "[![](https://github.com/JacobDomagala/TestAction/wiki/build_status_badge.svg)](https://github.com/JacobDomagala/TestAction/wiki/build_times.png)\n"
+        "[![](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{BADGE_FILENAME})\n"
         "</br>\n"
+        "[![](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})](https://github.com/JacobDomagala/TestAction/wiki/{GRAPH_FILENAME})\n"
         "### Another section\n"
         "## Subsection\n"
         " Some interesting data </br>\n"
         "## Second Subsection\n"
+        "[![](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})](https://github.com/JacobDomagala/TestAction/wiki/{EXP_TEMPLATE_DIR})"
+        "\n"
         )
 
 if __name__ == "__main__":

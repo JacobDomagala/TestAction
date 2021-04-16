@@ -1,33 +1,33 @@
 name: "Graph build times to wiki page"
-description: "Genertates and pushes graph of build times to a GitHub project's wiki"
+description: |
+ "GitHub action that generates a graph of build times and pushes it to project's wiki page"
 
 inputs:
   github_personal_token:
     description: 'Github personal access token used to push graph to remote wiki repo'
     required: true
-  github_token:
-    description: 'Github token used for Github API requests'
-    required: true
-    default: ${{ github.token }}
-  workflow:
-    description: |
-      'Name of the worflow (yaml file or Github's unique workflow ID number)
-      for which the graph will be generated'
-    required: true
-  filename:
+  build_stats_output:
+    description: 'Wiki repo directory for generated build data. Defaults to root directory'
+  build_times_filename:
+    description: 'Filename where the previous build times are stored. File format should be CSV'
+    default: 'build_times.csv'
+  build_result_filename:
+    description: 'Path to ClangBuildAnalyzer file (txt format)'
+    default: 'build_result.txt'
+  graph_filename:
     description: 'Filename for the generated graph that will be pushed to the wiki repo'
-    required: true
     default: 'graph.png'
-  repo:
-    description: |
-      'Repository name where queried workflow is being run. If not provided, the value of GITHUB_REPOSITORY will be used,
-      which is the name of the repository on which this action is run'
-    default: ${{ github.repository }}
+  badge_filename:
+    description: 'Filename for generated badge which displays most recent build time.File format should be SVG'
+    default: 'build_status_badge.svg'
+  badge_title:
+    description: 'Name that will be displayed on the badge'
+    default: ${{ github.repository }} build time
+  badge_logo:
+    description: 'Logo which will be displayed on the badge. For the list of logos see https://shields.io/'
   num_last_build:
-    description: 'Number of last builds to be used for generating graph'
-    default: '10'
-  branch:
-    description: 'Branch name for which build times should be plotted'
+    description: 'Number of last builds used for generating graph'
+    default: '25'
   title:
     description: 'Title of the generated graph'
   x_label:
@@ -42,22 +42,11 @@ inputs:
   graph_height:
     description: 'Graph height in inches'
     default: 4.8
-  build_file:
-    description: 'file with build time'
   commit_message:
     description: 'Commit message for wiki page'
-  docker_username:
-    description: 'Username to dockerhub'
-    required: true
-  docker_password:
-    description: 'Password to dockerhub'
-    required: true
-  docker_repository:
-    description: 'Docker image name'
-    required: true
-  run_id:
-    description: 'Current workflow run ID'
-    required: true
+    default: Push build time graph
+  run_number:
+    description: 'Run number of the current workflow'
     default: ${{github.run_number}}
 
 
