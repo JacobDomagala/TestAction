@@ -28,7 +28,7 @@ def prepare_data():
                     end_of_template_name = tmp_text.index("(")
                     template_name = tmp_text[:end_of_template_name - 1]
 
-                    times_and_avg = tmp_text[end_of_template_name:]
+                    times_and_avg = tmp_text[end_of_template_name+1:]
                     times_used = int(times_and_avg[:times_and_avg.index(" ")])
                     avg_time = int(times_and_avg[times_and_avg.index("avg") + 3:times_and_avg.index("ms")])
 
