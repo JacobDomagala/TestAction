@@ -36,6 +36,7 @@ def prepare_data():
 
                 break
 
+    print(templates)
     return templates, templates_total_times
 
 def generate_graph(templates_total_times):
