@@ -138,7 +138,7 @@ def create_md_page(last_builds, templates_text):
     for idx, (name, times, avg)  in templates_text.items():
         templates_string += f"| **{idx}** | `{name}` | **{times}** | **{avg}** |\n"
 
-    PAGE_NAME = "Build_Stats"
+    PAGE_NAME = "Build-Stats"
     with open(f"{PAGE_NAME}.md", "w") as f:
         WIKI_PAGE = f"https://github.com/{REPO_NAME}/wiki/{PAGE_NAME}"
         f.write(f""
