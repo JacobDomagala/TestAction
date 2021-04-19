@@ -7,6 +7,8 @@ import pandas as pd
 import numpy as np
 
 OUTPUT_DIR = os.getenv('INPUT_BUILD_STATS_OUTPUT')
+CLANG_BUILD_REPORT = f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_RESULT_FILENAME')}"
+
 EXP_TEMPLATE_INST_DIR = f"{OUTPUT_DIR}/most_expensive_templates.png"
 EXP_TEMPLATE_SET_DIR = f"{OUTPUT_DIR}/most_expensive_templates_sets.png"
 EXP_FUNCTION_SET_DIR = f"{OUTPUT_DIR}/most_expensive_function_sets.png"
@@ -58,7 +60,7 @@ def prepare_data():
     function_sets_times = []
     function_sets = dict()
 
-    with open(f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_RESULT_FILENAME')}") as f:
+    with open(CLANG_BUILD_REPORT) as f:
         lines = f.read().splitlines()
 
         for idx, line in enumerate(lines):
@@ -177,6 +179,7 @@ def create_md_page(last_builds, exp_temp_inst, exp_temp_sets, exp_func_sets):
         f"- [Templates that took longest to instantiate]({WIKI_PAGE}#templates-that-took-longest-to-instantiate)\n"
         f"- [Template sets that took longest to instantiate]({WIKI_PAGE}#template-sets-that-took-longest-to-instantiate)\n"
         f"- [Function sets that took longest to compile / optimize]({WIKI_PAGE}#function-sets-that-took-longest-to-compile-/-optimize)\n"
+        f"- [ClangBuildAnalyzer full report]({CLANG_BUILD_REPORT})\n"
         "***\n"
         f"# Build History\n"
         f"**NOTE. The following builds were run on GitHub Action runners that use [2-core CPU and 7 GB RAM](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)** <br>"
@@ -200,6 +203,7 @@ def create_md_page(last_builds, exp_temp_inst, exp_temp_sets, exp_func_sets):
         "## Function sets that took longest to compile / optimize \n"
         f"[![](https://github.com/{REPO_NAME}/wiki/{EXP_FUNCTION_SET_DIR})](https://github.com/{REPO_NAME}/wiki/{EXP_FUNCTION_SET_DIR})\n"
         f"{exp_function_sets_string}"
+        "*** \n"
         )
 
 if __name__ == "__main__":
