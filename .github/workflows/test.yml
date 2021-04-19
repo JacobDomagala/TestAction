@@ -8,7 +8,7 @@ jobs:
       name: Test job
       steps:
       - name: Generate wiki page
-        uses: JacobDomagala/TestAction@master
+        uses: DARMA-tasking/graph-build-times@7-add-static-analysis
         with:
           github_personal_token: ${{ secrets.GPAT }}
           title: Last builds
