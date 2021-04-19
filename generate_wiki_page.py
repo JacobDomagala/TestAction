@@ -64,7 +64,7 @@ def prepare_data():
                 templates_total_times, templates = get_name_times_avg(idx, lines)
 
             if line.startswith("**** Template sets that took longest to instantiate:"):
-                template_sets_times, template_sets = templates_total_times, templates = get_name_times_avg(idx, lines)
+                template_sets_times, template_sets = get_name_times_avg(idx, lines)
 
     return templates, templates_total_times, template_sets_times, template_sets
 
@@ -171,7 +171,7 @@ def create_md_page(last_builds, exp_temp_inst, exp_temp_sets):
         f"- [Template sets that took longest to instantiate]({WIKI_PAGE}#template-sets-that-took-longest-to-instantiate)\n"
         "***\n"
         f"# Build History\n"
-        f"**NOTE. The following builds were run on GitHub Action runners that use [2-core CPU and 7 GB RAM](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)** \n"
+        f"**NOTE. The following builds were run on GitHub Action runners that use [2-core CPU and 7 GB RAM](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)** <br>"
         "With the configuration:\n"
         "- Compiler: Clang-10\n"
         "- Linux: Ubuntu 20.04\n"
@@ -193,7 +193,7 @@ def create_md_page(last_builds, exp_temp_inst, exp_temp_sets):
 if __name__ == "__main__":
     templates, templates_total_times, template_sets_times, template_sets = prepare_data()
     generate_graph(EXP_TEMPLATE_INST_DIR, templates_total_times)
-    generate_graph(EXP_TEMPLATE_SET_DIR, templates_total_times)
+    generate_graph(EXP_TEMPLATE_SET_DIR, template_sets_times)
 
     last_builds = generate_last_build_table()
     create_md_page(last_builds, templates, template_sets)
