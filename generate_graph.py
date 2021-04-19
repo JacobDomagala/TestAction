@@ -88,7 +88,6 @@ def generate_graph(vt, tests, run_nums, dates):
     plt.rc('ytick', labelsize=MEDIUM_SIZE)
     plt.rc('legend', fontsize=MEDIUM_SIZE)
     plt.rc('figure', titlesize=BIGGER_SIZE)
-    plt.style.use('Solarize_Light2')
 
     GRAPH_WIDTH = float(os.getenv('INPUT_GRAPH_WIDTH'))
     GRAPH_HEIGHT = float(os.getenv('INPUT_GRAPH_HEIGHT'))
@@ -105,8 +104,8 @@ def generate_graph(vt, tests, run_nums, dates):
     plt.xlabel(os.getenv('INPUT_X_LABEL'))
 
     ax1.plot(run_nums, total_timings, color='b', marker='o', label='total')
-    ax2.plot(run_nums, vt_timings, color='r', marker='s', label='vt-lib')
-    ax3.plot(run_nums, tests_timings, color='g', marker='d', label='tests and examples')
+    ax2.plot(run_nums, vt_timings, color='m', marker='s', label='vt-lib')
+    ax3.plot(run_nums, tests_timings, color='c', marker='d', label='tests and examples')
 
     annotate(ax1, run_nums, total_timings)
     annotate(ax2, run_nums, vt_timings)
