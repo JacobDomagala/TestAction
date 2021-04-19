@@ -9,17 +9,19 @@ import numpy as np
 OUTPUT_DIR = os.getenv('INPUT_BUILD_STATS_OUTPUT')
 EXP_TEMPLATE_INST_DIR = f"{OUTPUT_DIR}/most_expensive_templates.png"
 EXP_TEMPLATE_SET_DIR = f"{OUTPUT_DIR}/most_expensive_templates_sets.png"
+EXP_FUNCTION_SET_DIR = f"{OUTPUT_DIR}/most_expensive_function_sets.png"
 GRAPH_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_GRAPH_FILENAME')}"
 BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
-NUM_TOP_TEMPLATES = 15
+NUM_TOP_RESULTS = 15
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
 
+# Example - > 26549 ms: some<template> (306 times, avg 86 ms)
 def get_name_times_avg(idx, lines):
     templates_total_times = []
     templates = dict()
 
-    for index, template in enumerate(lines[idx + 1 : idx + NUM_TOP_TEMPLATES]):
+    for index, template in enumerate(lines[idx + 1 : idx + NUM_TOP_RESULTS]):
         delimiter = template.index("ms")
         templates_total_times.append(int(template[ : delimiter]))
 
@@ -52,9 +54,9 @@ def prepare_data():
     template_sets_times = []
     template_sets = dict()
 
-    # Expensive functions
-
     # Expensive function sets
+    function_sets_times = []
+    function_sets = dict()
 
     with open(f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_RESULT_FILENAME')}") as f:
         lines = f.read().splitlines()
@@ -66,7 +68,11 @@ def prepare_data():
             if line.startswith("**** Template sets that took longest to instantiate:"):
                 template_sets_times, template_sets = get_name_times_avg(idx, lines)
 
-    return templates, templates_total_times, template_sets_times, template_sets
+            if line.startswith("**** Function sets that took longest to compile / optimize:"):
+                function_sets_times, function_sets = get_name_times_avg(idx, lines)
+
+
+    return templates, template_sets, function_sets, templates_total_times, template_sets_times, function_sets_times
 
 def generate_graph(name, templates_total_times):
 
@@ -156,10 +162,11 @@ def generate_last_build_table():
 
     return last_builds_table
 
-def create_md_page(last_builds, exp_temp_inst, exp_temp_sets):
+def create_md_page(last_builds, exp_temp_inst, exp_temp_sets, exp_func_sets):
 
     exp_templates_inst_string = generate_name_times_avg_table(exp_temp_inst)
     exp_templates_sets_string = generate_name_times_avg_table(exp_temp_sets)
+    exp_function_sets_string = generate_name_times_avg_table(exp_func_sets)
 
     PAGE_NAME = "Build-Stats"
     with open(f"{PAGE_NAME}.md", "w") as f:
@@ -169,6 +176,7 @@ def create_md_page(last_builds, exp_temp_inst, exp_temp_sets):
         f"- [Past Builds]({WIKI_PAGE}#past-builds)\n"
         f"- [Templates that took longest to instantiate]({WIKI_PAGE}#templates-that-took-longest-to-instantiate)\n"
         f"- [Template sets that took longest to instantiate]({WIKI_PAGE}#template-sets-that-took-longest-to-instantiate)\n"
+        f"- [Function sets that took longest to compile / optimize]({WIKI_PAGE}#function-sets-that-took-longest-to-compile-/-optimize)\n"
         "***\n"
         f"# Build History\n"
         f"**NOTE. The following builds were run on GitHub Action runners that use [2-core CPU and 7 GB RAM](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)** <br>"
@@ -188,12 +196,17 @@ def create_md_page(last_builds, exp_temp_inst, exp_temp_sets):
         "## Template sets that took longest to instantiate \n"
         f"[![](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_SET_DIR})](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_SET_DIR})\n"
         f"{exp_templates_sets_string}"
+        "*** \n"
+        "## Function sets that took longest to compile / optimize \n"
+        f"[![](https://github.com/{REPO_NAME}/wiki/{EXP_FUNCTION_SET_DIR})](https://github.com/{REPO_NAME}/wiki/{EXP_FUNCTION_SET_DIR})\n"
+        f"{exp_function_sets_string}"
         )
 
 if __name__ == "__main__":
-    templates, templates_total_times, template_sets_times, template_sets = prepare_data()
+    templates, template_sets, function_sets, templates_total_times, template_sets_times, function_sets_times = prepare_data()
     generate_graph(EXP_TEMPLATE_INST_DIR, templates_total_times)
     generate_graph(EXP_TEMPLATE_SET_DIR, template_sets_times)
+    generate_graph(EXP_FUNCTION_SET_DIR, function_sets_times)
 
     last_builds = generate_last_build_table()
-    create_md_page(last_builds, templates, template_sets)
+    create_md_page(last_builds, templates, template_sets, function_sets)
