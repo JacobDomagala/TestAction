@@ -7,43 +7,68 @@ import pandas as pd
 import numpy as np
 
 OUTPUT_DIR = os.getenv('INPUT_BUILD_STATS_OUTPUT')
-EXP_TEMPLATE_DIR = f"{OUTPUT_DIR}/most_expensive_templates.png"
+EXP_TEMPLATE_INST_DIR = f"{OUTPUT_DIR}/most_expensive_templates.png"
+EXP_TEMPLATE_SET_DIR = f"{OUTPUT_DIR}/most_expensive_templates_sets.png"
 GRAPH_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_GRAPH_FILENAME')}"
 BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
 NUM_TOP_TEMPLATES = 15
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
 
-
-def prepare_data():
+def get_name_times_avg(idx, lines):
     templates_total_times = []
     templates = dict()
+
+    for index, template in enumerate(lines[idx + 1 : idx + NUM_TOP_TEMPLATES]):
+        delimiter = template.index("ms")
+        templates_total_times.append(int(template[ : delimiter]))
+
+        tmp_text = template[delimiter + 3 : ]
+        end_of_template_name = tmp_text.index("(")
+        template_name = tmp_text[:end_of_template_name - 1]
+
+        times_and_avg = tmp_text[end_of_template_name + 1 : ]
+        times_used = int(times_and_avg[:times_and_avg.index(" ")])
+        avg_time = int(times_and_avg[times_and_avg.index("avg") + 3 : times_and_avg.index("ms")])
+
+        templates[index] = (template_name, times_used, avg_time)
+
+    return templates_total_times, templates
+
+def generate_name_times_avg_table(templates_text):
+    templates_string = "| Label | Name | Times | Avg (ms) |\n"\
+        "|---|:---:|---|---|\n"
+    for idx, (name, times, avg)  in templates_text.items():
+        templates_string += f"| **{idx}** | `{name}` | **{times}** | **{avg}** |\n"
+
+    return templates_string
+
+def prepare_data():
+    # Expensive template instantiations
+    templates_total_times = []
+    templates = dict()
+
+    # Expensive template sets
+    template_sets_times = []
+    template_sets = dict()
+
+    # Expensive functions
+
+    # Expensive function sets
 
     with open(f"{OUTPUT_DIR}/{os.getenv('INPUT_BUILD_RESULT_FILENAME')}") as f:
         lines = f.read().splitlines()
 
         for idx, line in enumerate(lines):
             if line.startswith("**** Templates that took longest to instantiate:"):
-                for index, template in enumerate(lines[idx + 1 : idx + NUM_TOP_TEMPLATES]):
-                    delimiter = template.index("ms")
-                    templates_total_times.append(int(template[ : delimiter]))
+                templates_total_times, templates = get_name_times_avg(idx, lines)
 
-                    tmp_text = template[delimiter + 3 : ]
-                    end_of_template_name = tmp_text.index("(")
-                    template_name = tmp_text[:end_of_template_name - 1]
+            if line.startswith("**** Template sets that took longest to instantiate:"):
+                template_sets_times, template_sets = templates_total_times, templates = get_name_times_avg(idx, lines)
 
-                    times_and_avg = tmp_text[end_of_template_name + 1 : ]
-                    times_used = int(times_and_avg[:times_and_avg.index(" ")])
-                    avg_time = int(times_and_avg[times_and_avg.index("avg") + 3 : times_and_avg.index("ms")])
+    return templates, templates_total_times, template_sets_times, template_sets
 
-                    templates[index] = (template_name, times_used, avg_time)
-
-                break
-
-    print(templates)
-    return templates, templates_total_times
-
-def generate_graph(templates_total_times):
+def generate_graph(name, templates_total_times):
 
     SMALL_SIZE = 15
     MEDIUM_SIZE = 25
@@ -91,7 +116,7 @@ def generate_graph(templates_total_times):
     plt.legend()
     plt.tight_layout()
 
-    plt.savefig(EXP_TEMPLATE_DIR)
+    plt.savefig(name)
 
 def convert_time(time_in_sec):
     return f"{time_in_sec//60}min {time_in_sec%60}sec"
@@ -131,12 +156,10 @@ def generate_last_build_table():
 
     return last_builds_table
 
-def create_md_page(last_builds, templates_text):
+def create_md_page(last_builds, exp_temp_inst, exp_temp_sets):
 
-    templates_string = "| Label | Name | Times | Avg (ms) |\n"\
-        "|---|:---:|---|---|\n"
-    for idx, (name, times, avg)  in templates_text.items():
-        templates_string += f"| **{idx}** | `{name}` | **{times}** | **{avg}** |\n"
+    exp_templates_inst_string = generate_name_times_avg_table(exp_temp_inst)
+    exp_templates_sets_string = generate_name_times_avg_table(exp_temp_sets)
 
     PAGE_NAME = "Build-Stats"
     with open(f"{PAGE_NAME}.md", "w") as f:
@@ -145,10 +168,11 @@ def create_md_page(last_builds, templates_text):
         f"- [Build History]({WIKI_PAGE}#build-history)\n"
         f"- [Past Builds]({WIKI_PAGE}#past-builds)\n"
         f"- [Templates that took longest to instantiate]({WIKI_PAGE}#templates-that-took-longest-to-instantiate)\n"
+        f"- [Template sets that took longest to instantiate]({WIKI_PAGE}#template-sets-that-took-longest-to-instantiate)\n"
         "***\n"
         f"# Build History\n"
-        f"**NOTE. The following builds were run on GitHub Action runners that use [2-core CPU and 7 GB RAM](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)**\n"
-        "With the following configuration:\n"
+        f"**NOTE. The following builds were run on GitHub Action runners that use [2-core CPU and 7 GB RAM](https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources)** \n"
+        "With the configuration:\n"
         "- Compiler: Clang-10\n"
         "- Linux: Ubuntu 20.04\n"
         "<br><br>"
@@ -158,13 +182,18 @@ def create_md_page(last_builds, templates_text):
         "*** \n"
         "# Build Stats\n"
         "## Templates that took longest to instantiate \n"
-        f"[![](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_DIR})](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_DIR})\n"
-        f"{templates_string}"
-        "***"
+        f"[![](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_INST_DIR})](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_INST_DIR})\n"
+        f"{exp_templates_inst_string}"
+        "*** \n"
+        "## Template sets that took longest to instantiate \n"
+        f"[![](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_SET_DIR})](https://github.com/{REPO_NAME}/wiki/{EXP_TEMPLATE_SET_DIR})\n"
+        f"{exp_templates_sets_string}"
         )
 
 if __name__ == "__main__":
-    templates, templates_total_times = prepare_data()
-    generate_graph(templates_total_times)
+    templates, templates_total_times, template_sets_times, template_sets = prepare_data()
+    generate_graph(EXP_TEMPLATE_INST_DIR, templates_total_times)
+    generate_graph(EXP_TEMPLATE_SET_DIR, templates_total_times)
+
     last_builds = generate_last_build_table()
-    create_md_page(last_builds, templates)
+    create_md_page(last_builds, templates, template_sets)
