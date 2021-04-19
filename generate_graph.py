@@ -75,7 +75,9 @@ def set_common_axis_data(iterable_axis):
 def annotate(ax, x_list, y_list):
     percentage_diff = round(((y_list[-1] - y_list[-2]) / y_list[-2]) * 100.0)
     color = "red" if percentage_diff >= 0 else "green"
-    ax.annotate(f'{percentage_diff}%', xy=(x_list[-1], y_list[-1]), color=color)
+    offset_x = x_list[-1] / 100.0
+    offset_y = y_list[-1] / 100.0
+    ax.annotate(f'{percentage_diff}%', xy=(x_list[-1] + offset_x, y_list[-1] - offset_y), color=color)
 
 def generate_graph(vt, tests, run_nums, dates):
     SMALL_SIZE = 15
