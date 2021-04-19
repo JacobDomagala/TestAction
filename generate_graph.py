@@ -77,7 +77,8 @@ def annotate(ax, x_list, y_list):
     color = "red" if percentage_diff >= 0 else "green"
     offset_x = x_list[-1] / 100.0
     offset_y = y_list[-1] / 100.0
-    ax.annotate(f'{percentage_diff}%', xy=(x_list[-1] + offset_x, y_list[-1] - offset_y), color=color)
+    text = f'+{percentage_diff}%' if color == "red" else f'{percentage_diff}%'
+    ax.annotate(text, xy=(x_list[-1] + offset_x, y_list[-1] - offset_y), color=color)
 
 def generate_graph(vt, tests, run_nums, dates):
     SMALL_SIZE = 15

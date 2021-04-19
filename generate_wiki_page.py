@@ -18,24 +18,24 @@ REPO_NAME = os.getenv('GITHUB_REPOSITORY')
 
 # Example - > 26549 ms: some<template> (306 times, avg 86 ms)
 def get_name_times_avg(idx, lines):
-    templates_total_times = []
-    templates = dict()
+    total_times = []
+    name_times_avg = dict()
 
     for index, template in enumerate(lines[idx + 1 : idx + NUM_TOP_RESULTS]):
         delimiter = template.index("ms")
-        templates_total_times.append(int(template[ : delimiter]))
+        total_times.append(int(template[ : delimiter]))
 
         tmp_text = template[delimiter + 3 : ]
-        end_of_template_name = tmp_text.index("(")
-        template_name = tmp_text[:end_of_template_name - 1]
+        end_of_name = tmp_text.rfind("(")
+        name = tmp_text[:end_of_name - 1]
 
-        times_and_avg = tmp_text[end_of_template_name + 1 : ]
+        times_and_avg = tmp_text[end_of_name + 1 : ]
         times_used = int(times_and_avg[:times_and_avg.index(" ")])
         avg_time = int(times_and_avg[times_and_avg.index("avg") + 3 : times_and_avg.index("ms")])
 
-        templates[index] = (template_name, times_used, avg_time)
+        name_times_avg[index] = (name, times_used, avg_time)
 
-    return templates_total_times, templates
+    return total_times, name_times_avg
 
 def generate_name_times_avg_table(templates_text):
     templates_string = "| Label | Name | Times | Avg (ms) |\n"\
