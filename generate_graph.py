@@ -88,6 +88,7 @@ def generate_graph(vt, tests, run_nums, dates):
     plt.rc('ytick', labelsize=MEDIUM_SIZE)
     plt.rc('legend', fontsize=MEDIUM_SIZE)
     plt.rc('figure', titlesize=BIGGER_SIZE)
+    plt.style.use('Solarize_Light2')
 
     GRAPH_WIDTH = float(os.getenv('INPUT_GRAPH_WIDTH'))
     GRAPH_HEIGHT = float(os.getenv('INPUT_GRAPH_HEIGHT'))
