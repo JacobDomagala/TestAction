@@ -15,7 +15,7 @@ EXP_HEADERS_DIR = f"{OUTPUT_DIR}/most_expensive_headers.png"
 GRAPH_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_GRAPH_FILENAME')}"
 BADGE_FILENAME = f"{OUTPUT_DIR}/{os.getenv('INPUT_BADGE_FILENAME')}"
 
-NUM_TOP_RESULTS = 15
+NUM_TOP_RESULTS = 25
 REPO_NAME = os.getenv('GITHUB_REPOSITORY')
 
 # Example - > 26549 ms: some<template> (306 times, avg 86 ms)
